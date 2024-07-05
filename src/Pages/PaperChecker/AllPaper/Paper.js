@@ -17,7 +17,7 @@ const Paper = ({ ap, refetch, i }) => {
             confirmButtonText: "Delete Paper"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/check/${id}`, {
+                fetch(`https://quick-edu-live-server-side.vercel.app/check/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem("quickEdu-token")}`

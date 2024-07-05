@@ -20,7 +20,7 @@ const StartQuiz = () => {
     const { data: startQuiz = {}, isLoading } = useQuery({
         queryKey: ["startQuiz", examId],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/classwork/${examId}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/classwork/${examId}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }
@@ -71,7 +71,7 @@ const StartQuiz = () => {
             correctAnswer: correctAnswers[index].slice(0,2),
         }));
 
-        fetch("http://localhost:5000/submission", {
+        fetch("https://quick-edu-live-server-side.vercel.app/submission", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

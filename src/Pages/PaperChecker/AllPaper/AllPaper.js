@@ -7,7 +7,7 @@ const AllPaper = () => {
     const { data: allPaper = [], isLoading, refetch } = useQuery({
         queryKey: ["All Paper"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/check`, {
+            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/check`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

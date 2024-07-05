@@ -12,7 +12,7 @@ const QuizResult = () => {
     const { data: quizQuestion, isLoading: quizQuestionIsLoading } = useQuery({
         queryKey: ["quizQuestion", id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/classwork/${id}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/classwork/${id}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }
@@ -25,7 +25,7 @@ const QuizResult = () => {
     const { data: quizResult, isLoading: quizResultIsLoading } = useQuery({
         queryKey: ["quizResult", userEmail],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/submission?email=${userEmail}&qId=${id}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/submission?email=${userEmail}&qId=${id}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

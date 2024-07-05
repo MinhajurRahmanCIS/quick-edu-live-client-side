@@ -4,7 +4,7 @@ const useAssignmentSubmission = id => {
     const { data: viewAssignmentSubmissions = [], isLoading: viewAssignmentSubmissionsLoading } = useQuery({
         queryKey: ["viewSubmissions", id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/viewAssignmentSubmission/${id}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/viewAssignmentSubmission/${id}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

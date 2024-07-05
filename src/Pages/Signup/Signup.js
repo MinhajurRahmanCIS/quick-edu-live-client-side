@@ -85,7 +85,7 @@ const Signup = () => {
     };
 
     const saveUser = user => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://quick-edu-live-server-side.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -16,7 +16,7 @@ const Payment = () => {
     const { data: payment = [], isLoading: paymentIsLoading } = useQuery({
         queryKey: ["payment"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/payment/info/${email}/${transactionId}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/payment/info/${email}/${transactionId}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

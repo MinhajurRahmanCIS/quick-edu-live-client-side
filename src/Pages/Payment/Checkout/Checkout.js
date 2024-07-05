@@ -40,7 +40,7 @@ const Checkout = () => {
             amount: price,
         }
 
-        fetch(`http://localhost:5000/payment`, {
+        fetch(`https://quick-edu-live-server-side.vercel.app/payment`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",

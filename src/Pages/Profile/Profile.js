@@ -21,7 +21,7 @@ const Profile = () => {
     // console.log(userInfo.data);
 
     const handelUpdateProfile = data => {
-        fetch(`http://localhost:5000/users/${_id}`, {
+        fetch(`https://quick-edu-live-server-side.vercel.app/users/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
