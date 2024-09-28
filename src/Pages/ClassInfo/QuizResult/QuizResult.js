@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { IoArrowUndoOutline } from 'react-icons/io5';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Loading from '../../Shared/Loading/Loading';
 import Results from './Results';
 import GoBackButton from '../../../components/GoBackButton';
@@ -39,7 +38,7 @@ const QuizResult = () => {
         return <Loading></Loading>
     }
 
-    const { classId, topic, date, examDuration, questions } = quizQuestion?.data;
+    const { topic, date, examDuration, questions } = quizQuestion?.data;
 
     // Calculate total correct answers
     const totalCorrect = quizResult?.data?.results?.filter(result => result.isCorrect).length || 0;

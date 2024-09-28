@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useLoadUser from '../../../hooks/useLoadUser';
 import Loading from '../../Shared/Loading/Loading';
@@ -11,10 +10,8 @@ import { Helmet } from 'react-helmet-async';
 const Checkout = () => {
     const { user } = useContext(AuthContext);
     const { userInfo, userIsLoading } = useLoadUser(user);
-    const navigate = useNavigate();
-
     const [currency, setCurrency] = useState('USD');
-    const [price, setPrice] = useState(10.99);
+    const [price, setPrice] = useState(4.26);
 
     const exchangeRate = 117.44; // Exchange rate from USD to BDT
 

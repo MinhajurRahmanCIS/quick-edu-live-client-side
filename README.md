@@ -3,11 +3,11 @@
 # Project Name : Quick Edu Live (Ai Classroom)
 
 ## Teacher Account
-teacher@gmail.com
-Teacher123#
+Email: teacher@gmail.com
+Password: Teacher123#
 ## Student Account
-student@gmail.com
-Student123#
+Email: student@gmail.com
+Password: Student123#
 
 # Project Info
 Quick Edu Live is an Educational Platform. With Ai Classroom Feature. It makes every thing easy With less human interaction, less time and less thinking.
@@ -59,6 +59,7 @@ Quick Edu Live is an Educational Platform. With Ai Classroom Feature. It makes e
 Project Deploy Site For Client side: https://quickedulive.web.app
   \
 Project Deploy Site For Server side: https://vercel.com/rkznews-projects/quick-edu-live-server-side
+
 
 
 Project Repository Link For Client side: https://github.com/MinhajurRahmanCIS/quick-edu-live-client-side 

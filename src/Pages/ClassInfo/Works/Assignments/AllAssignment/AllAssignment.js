@@ -8,7 +8,7 @@ import useAssignmentSubmission from '../../../../../hooks/useAssignmentSubmissio
 import Loading from '../../../../Shared/Loading/Loading';
 
 const AllAssignment = ({ assignment, i, refetch, isTeacher, assignmentSubmissions }) => {
-    const { _id, topic, assignmentNo, date, level } = assignment;
+    const { _id, topic, date, level } = assignment;
     const { viewAssignmentSubmissions, viewAssignmentSubmissionsLoading } = useAssignmentSubmission(_id);
     const handelDeleteQuiz = id => {
         Swal.fire({

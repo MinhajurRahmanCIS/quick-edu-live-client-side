@@ -1,6 +1,9 @@
 import React from 'react';
 import { MdOutlineAssignment, MdOutlineQuiz } from 'react-icons/md';
 import { SiGooglebard, SiGoogleclassroom } from 'react-icons/si';
+import { RiPresentationFill } from "react-icons/ri";
+import { GiVideoConference } from "react-icons/gi";
+import { RiLiveLine } from "react-icons/ri";
 const Feature = () => {
     return (
         <div className="bg-base-200 p-10 mt-10">
@@ -9,7 +12,7 @@ const Feature = () => {
             <div className="card bg-base-100 shadow-xl border py-20">
                 <div className="card-body flex flex-col items-center justify-center">
                     <h2 className="text-8xl flex gap-2"> <SiGooglebard className="text-xs text-blue-400" /> <SiGoogleclassroom /></h2>
-                    <p className="text-xl font-semibold">Ai Classroom</p>
+                    <p className="text-xl font-semibold">Classroom</p>
                 </div>
             </div>
             <div className="card bg-base-100 shadow-xl border py-20">
@@ -22,6 +25,18 @@ const Feature = () => {
                 <div className="card-body flex flex-col items-center justify-center">
                     <h2 className="text-8xl flex"><SiGooglebard className="text-xs text-blue-400" /> <MdOutlineAssignment /> </h2>
                     <p className="text-xl font-semibold">Ai Assignment Generator</p>
+                </div>
+            </div>
+            <div className="card bg-base-100 shadow-xl border py-20">
+                <div className="card-body flex flex-col items-center justify-center">
+                    <h2 className="text-8xl flex"><SiGooglebard className="text-xs text-blue-400" /> <RiPresentationFill  /> </h2>
+                    <p className="text-xl font-semibold">Ai Presentation Generator</p>
+                </div>
+            </div>
+            <div className="card bg-base-100 shadow-xl border py-20">
+                <div className="card-body flex flex-col items-center justify-center">
+                    <h2 className="text-8xl flex"><RiLiveLine className="text-xs text-blue-400" /> <GiVideoConference  /> </h2>
+                    <p className="text-xl font-semibold">Live Class</p>
                 </div>
             </div>
         </div>

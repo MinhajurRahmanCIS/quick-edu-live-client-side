@@ -3,7 +3,7 @@ import { Link, useRouteError } from 'react-router-dom';
 import err from '../../assets/ErrorPage/err.png';
 import { Helmet } from 'react-helmet-async';
 const ErrorPage = () => {
-    const { error, status } = useRouteError();
+    const { error} = useRouteError();
     return (
         <div className="flex flex-col justify-center items-center min-h-screen">
              <Helmet>

@@ -9,6 +9,8 @@ import useLoadUser from '../../../hooks/useLoadUser';
 import Enroll from '../ClassEnroll/Enroll/Enroll';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import SuggestionClasses from '../SuggestionClasses/SuggestionClasses';
 
 const MyHome = () => {
     const { user } = useContext(AuthContext);
@@ -17,7 +19,20 @@ const MyHome = () => {
     const { classes, classLoading, refetch } = useClasses(user);
     const [modal, setModal] = useState(null);
 
-    if (userIsLoading || isTeacherLoading) {
+    const { data: suggestions = [], suggestionsIsLoading, refetch: suggestionsRefetch } = useQuery({
+        queryKey: ["Suggestion"],
+        queryFn: async () => {
+            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/suggestedClasses/${user?.email}`, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
+                }
+            });
+            const data = await res.json();
+            return data?.data;
+        }
+    });
+
+    if (userIsLoading || isTeacherLoading || suggestionsIsLoading) {
         return <Loading></Loading>;
     };
     return (
@@ -66,10 +81,28 @@ const MyHome = () => {
                 {
                     !userInfo.data?.role && <Link className="btn btn-neutral" to="profile">Please Select Role First</Link>
                 }
-                
+
             </div>
 
-
+            {
+            suggestions.length > 0 &&
+                !isTeacher &&
+                <div className="p-20">
+                    <h1 className="text-4xl font-semibold">Class Suggestion</h1>
+                    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-1 gap-5">
+                        {
+                            suggestions?.map(suggest =>
+                                <SuggestionClasses
+                                    key={suggest._id}
+                                    suggest={suggest}
+                                    suggestionsRefetch={suggestionsRefetch}
+                                >
+                                </SuggestionClasses>
+                            )
+                        }
+                    </div>
+                </div>
+            }
 
         </div>
     );

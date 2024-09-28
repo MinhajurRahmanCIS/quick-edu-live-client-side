@@ -2,7 +2,7 @@ import React from 'react';
 import { FaFileDownload } from 'react-icons/fa';
 
 const ViewAssignmentSubmissionList = ({ viewAssignmentSubmission, i }) => {
-    const { assignmentId, userName, userEmail, userPicture, fileURL, fileName} = viewAssignmentSubmission;
+    const { userName, userEmail, userPicture, fileURL, fileName} = viewAssignmentSubmission;
 
     return (
         <tr className="hover">

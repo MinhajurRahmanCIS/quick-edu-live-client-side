@@ -4,10 +4,6 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import useLoadUser from '../../hooks/useLoadUser';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
-import { IoDiamond } from 'react-icons/io5';
-import { PiStudentDuotone } from 'react-icons/pi';
-import { FaChalkboardTeacher } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import GoBackButton from '../../components/GoBackButton';
 

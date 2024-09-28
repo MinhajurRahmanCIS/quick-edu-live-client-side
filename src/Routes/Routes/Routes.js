@@ -15,7 +15,6 @@ import Assignments from "../../Pages/ClassInfo/Works/Assignments/Assignments/Ass
 import ViewQuiz from "../../Pages/ClassInfo/Works/Quizzes/ViewQuiz/ViewQuiz/ViewQuiz";
 import ViewAssignment from "../../Pages/ClassInfo/Works/Assignments/ViewAssignment/ViewAssignment";
 import PaperChecker from "../../Pages/PaperChecker/PaperChecker/PaperChecker";
-import Chat from "../../Pages/ClassInfo/Chat/Chat/Chat";
 import PaperSummery from "../../Pages/PaperChecker/PaperSummery/PaperSummery";
 import AllPaper from "../../Pages/PaperChecker/AllPaper/AllPaper";
 import TeacherRoute from "../TeacherRoute/TeacherRoute";
@@ -33,6 +32,13 @@ import WhatsNew from "../../Pages/Logs/WhatsNew/WhatsNew";
 import Fail from "../../Pages/Payment/Payment/Fail";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import EditProfile from "../../Pages/Profile/EditProfile";
+import Presentation from "../../Pages/Presentation/Presentation/Presentation";
+import MyPresentation from "../../Pages/Presentation/MyPresentation/MyPresentation";
+import { io } from "socket.io-client";
+import QHome from "../../Pages/MyHome/QuickClass/QuickMeet/QHome";
+import Room from "../../Pages/MyHome/QuickClass/QuickMeet/Room";
+
+const socket = io('https://meet-indol-five.vercel.app');
 
 const router = createBrowserRouter([
     //Home Directory
@@ -116,6 +122,14 @@ const router = createBrowserRouter([
                 element: <TeacherRoute><Fail></Fail></TeacherRoute>
             },
             {
+                path: "/myhome/presentation",
+                element: <PrivateRoute><Presentation></Presentation></PrivateRoute>
+            },
+            {
+                path: "/myhome/mypresentation",
+                element: <PrivateRoute><MyPresentation></MyPresentation></PrivateRoute>
+            },
+            {
                 path: "/myhome/classinfo",
                 element: <PrivateRoute><ClassLayout></ClassLayout></PrivateRoute>,
                 children: [
@@ -135,10 +149,6 @@ const router = createBrowserRouter([
                         path: "/myhome/classinfo/classpeople/:id",
                         element: <PrivateRoute><ClassPeople></ClassPeople></PrivateRoute>
                     },
-                    {
-                        path: "/myhome/classinfo/chat/:id",
-                        element: <PrivateRoute><Chat></Chat></PrivateRoute>
-                    }
                 ]
             },
         ]
@@ -162,7 +172,16 @@ const router = createBrowserRouter([
     {
         path: "/viewassignmentsubmission/:id",
         element: <PrivateRoute><ViewAssignmentSubmission></ViewAssignmentSubmission></PrivateRoute>
-    }
+    },
+    {
+        path: "/qhome/:id",
+        element: <QHome />
+    },
+    {
+        path: "/room/:roomId",
+        element: <Room socket={socket} />
+    },
+
 
 ])
 

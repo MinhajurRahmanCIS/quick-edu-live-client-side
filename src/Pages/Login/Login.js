@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImage from '../../assets/login/Login.png';
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
 import toast from 'react-hot-toast';
@@ -23,7 +22,7 @@ const Login = () => {
         setLoginError("");
         signIn(data.email, data.password)
             .then(result => {
-                const loggedUser = result.user;
+                // const loggedUser = result.user;
                 // console.log(loggedUser);
                 setLoginUserEmail(data.email);
             })

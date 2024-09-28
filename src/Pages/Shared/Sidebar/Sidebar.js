@@ -4,12 +4,14 @@ import { CgHomeAlt } from 'react-icons/cg';
 import { FaGraduationCap } from "react-icons/fa";
 import { MdOutlineLiveHelp } from "react-icons/md";
 import { GrScan } from "react-icons/gr";
-import { LuFileScan } from "react-icons/lu";
+import { LuFileScan, LuPresentation } from "react-icons/lu";
 import { FcDocument } from "react-icons/fc";
 import { IoDiamond } from "react-icons/io5";
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useTeacher from '../../../hooks/useTeacher';
 import usePremium from '../../../hooks/UsePremium';
+import { RiPresentationLine } from 'react-icons/ri';
+import { BsFileEarmarkSlides } from 'react-icons/bs';
 const Sidebar = ({ classes, enrollClasses }) => {
     const { user } = useContext(AuthContext);
     const [isTeacher] = useTeacher(user?.email);
@@ -52,7 +54,7 @@ const Sidebar = ({ classes, enrollClasses }) => {
                     isTeacher && isPremium ?
                         <ul className="menu">
                             <li>
-                                <details open>
+                                <details close>
                                     <summary className="text-xl font-bold"><GrScan></GrScan>Paper Checker</summary>
                                     <ul className="font-semibold">
                                         <li className="text-xl font-bold"><Link to="/myhome/paperchecker"> <LuFileScan></LuFileScan>Check Paper</Link></li>
@@ -62,8 +64,20 @@ const Sidebar = ({ classes, enrollClasses }) => {
                             </li>
                         </ul>
                         :
-                        isTeacher && <li className="text-xl"><Link to="/myhome/checkout" className="btn btn-neutral font-bold text-[#d4af37]"><IoDiamond></IoDiamond>Buy Ai Paper Checker</Link></li>
+                        isTeacher && <li className="text-xl"><Link to="/myhome/checkout" className="btn btn-neutral font-bold text-[#d4af37]"><IoDiamond></IoDiamond>Ai Presentation Maker</Link></li>
                 }
+
+                <ul className="menu">
+                    <li>
+                        <details open>
+                            <summary className="text-xl font-bold"><RiPresentationLine />Ai Presentation</summary>
+                            <ul className="font-semibold">
+                                <li className="text-xl font-bold"><Link to="/myhome/presentation"> <LuPresentation />Generate Presentation</Link></li>
+                                <li className="text-xl font-bold"><Link to="/myhome/mypresentation"> <BsFileEarmarkSlides />My Presentation</Link></li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
                 <li className="text-xl font-bold"><Link to="/myhome/help">  <MdOutlineLiveHelp></MdOutlineLiveHelp>Help</Link></li>
             </ul>
         </div>

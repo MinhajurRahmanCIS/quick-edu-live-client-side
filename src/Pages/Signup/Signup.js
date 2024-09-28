@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import signupImage from '../../assets/signup/Signup.png';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
 import { AuthContext } from '../../contexts/AuthProvider';
 import toast from 'react-hot-toast';
 import useToken from '../../hooks/useToken';
@@ -25,7 +24,7 @@ const Signup = () => {
         // Create New User Function
         createUser(data.email, data.password)
             .then(result => {
-                const loggedUser = result.user;
+                // const loggedUser = result.user;
                 const image = data.image[0];
                 const formData = new FormData();
                 formData.append('image', image);
@@ -117,7 +116,7 @@ const Signup = () => {
             <div className="hero-content grid md:grid-cols-2 gap-20">
                 <div className="card shadow-2xl border">
                     <form onSubmit={handleSubmit(handelSignup)} className="card-body">
-                        <h1 className="text-2xl text-center font-semibold">Signup</h1>
+                        <h1 className="text-2xl text-center font-semibold">Sign Up</h1>
                         <hr />
 
                         <div className="form-control">
@@ -269,7 +268,7 @@ const Signup = () => {
                         </div>
 
                         <div className="form-control">
-                            <input type="submit" value="Signup" className="btn btn-neutral hover:bg-slate-600 text-xl font-semibold" />
+                            <input type="submit" value="Sign Up" className="btn btn-neutral hover:bg-slate-600 text-xl font-semibold" />
                         </div>
 
                         <div className="label">
@@ -278,8 +277,6 @@ const Signup = () => {
 
                         <div>
                             <button onClick={handleGoogleSignIn} className="btn w-full"><FcGoogle className="text-4xl"></FcGoogle> <span className="text-xl">Google</span></button>
-                            {/* <div className="divider">OR</div>
-                            <button className="btn w-full"><FaGithub className="text-4xl"></FaGithub> <span className="text-xl">Github</span></button> */}
                         </div>
 
                         <label className="text-center">

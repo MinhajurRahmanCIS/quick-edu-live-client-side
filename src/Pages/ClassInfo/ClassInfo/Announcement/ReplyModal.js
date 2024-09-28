@@ -7,7 +7,7 @@ import Replies from './Replies';
 
 const ReplyModal = ({ modal, setModal }) => {
     const { user } = useContext(AuthContext);
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm();
     const currentDate = new Date();
 
     const handelComment = (data, event) => {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider';
 import Loading from '../Shared/Loading/Loading';
 import { useForm } from 'react-hook-form';
@@ -14,10 +14,11 @@ const Profile = () => {
     const { user } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { userInfo, userIsLoading, refetch } = useLoadUser(user);
+    const [newSkill, setNewSkill] = useState('');
     if (userIsLoading) {
         return <Loading></Loading>;
     };
-    const { _id, name, email, institution, country, dob, role, image, account } = userInfo.data;
+    const { _id, name, email, institution, country, dob, role, image, account, skills } = userInfo.data;
     // console.log(userInfo.data);
 
     const handelUpdateProfile = data => {
@@ -36,11 +37,35 @@ const Profile = () => {
                 console.log(data);
             })
     };
+
+    const handleAddSkill = () => {
+        fetch(`https://quick-edu-live-server-side.vercel.app/usersSkill/${_id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
+            },
+            body: JSON.stringify({ skill: newSkill })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast.success("Skill added successfully");
+                    refetch();
+                } else {
+                    toast.error(data.message);
+                }
+            })
+            .catch(err => {
+                toast.error("An error occurred while adding the skill");
+                console.error(err);
+            });
+    };
     return (
         <section>
             <Helmet>
                 <title>
-                   {name}'s Profile
+                    {name}'s Profile
                 </title>
             </Helmet>
             <form onSubmit={handleSubmit(handelUpdateProfile)} className="card-body">
@@ -191,18 +216,49 @@ const Profile = () => {
                 </div>
                 {
                     !role
-                    ?
-                    (
-                        <div className="form-control mt-2">
-                            <input type="submit" value="Update Profile" className="btn btn-neutral hover:bg-slate-600 text-xl font-semibold" />
-                        </div>
-                    )
-                    :
-                    <>
-                    <Link to="/myhome/editprofile" className="btn btn-neutral">Edit Profile</Link>
-                    </>
+                        ?
+                        (
+                            <div className="form-control mt-2">
+                                <input type="submit" value="Update Profile" className="btn btn-neutral hover:bg-slate-600 text-xl font-semibold" />
+                            </div>
+                        )
+                        :
+                        <>
+                            <Link to="/myhome/editprofile" className="btn btn-neutral">Edit Profile</Link>
+                        </>
+                }
+                {
+                    role === "Student" &&
+                    <div>
+
+                        <h3 className="text-xl font-semibold my-4">Current Skills</h3>
+                        <ul>
+                            {skills && skills.length > 0
+                                ?
+                                skills.map((skill, index) => (
+                                    <div key={index} className="badge badge-lg text-xl border border-black bg-slate-200 mr-2">
+                                        {skill}
+                                    </div>
+                                ))
+                                :
+                                <li>No skills</li>}
+                        </ul>
+                    </div>
                 }
             </form>
+            {
+                role === "Student" &&
+                <div className="form-control w-1/2 px-10 mb-10">
+                    <input
+                        type="text"
+                        placeholder="Enter new skill"
+                        className="input input-bordered"
+                        value={newSkill}
+                        onChange={(e) => setNewSkill(e.target.value)}
+                    />
+                    <button onClick={handleAddSkill} className="btn btn-neutral mt-2">Add Skill</button>
+                </div>
+            }
         </section>
     );
 };

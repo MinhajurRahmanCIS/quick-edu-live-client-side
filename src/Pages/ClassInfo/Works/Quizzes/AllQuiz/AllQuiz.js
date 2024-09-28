@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { useContext } from 'react';
+import React from 'react';
 import Loading from '../../../../Shared/Loading/Loading';
 import { FaRegEye } from "react-icons/fa6";
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -10,7 +10,7 @@ import { BsFileEarmarkSpreadsheet } from 'react-icons/bs';
 import useLoadSubmission from '../../../../../hooks/useLoadSubmission';
 
 const AllQuiz = ({ quiz, i, refetch, isTeacher, submissions, user }) => {
-    const { _id, topic, quizNo, questions, date, time, examDuration, level } = quiz;
+    const { _id, topic, questions, date, time, examDuration, level } = quiz;
     const { viewSubmissions, viewSubmissionsLoading } = useLoadSubmission(_id);
     const currentDate = new Date();
     const checkDate = format(currentDate, "yyyy-MM-dd");
@@ -116,7 +116,11 @@ const AllQuiz = ({ quiz, i, refetch, isTeacher, submissions, user }) => {
                         (!hasSubmitted ?
                             <Link to={`/start/${_id}`} className="btn btn-neutral text-xl font-semibold">Start Quiz</Link>
                             :
-                            <Link to={`/result/${_id}/${user?.email}`} className="text-4xl hover:bg-slate-400 tooltip" data-tip={"Result"}><TbReportAnalytics ></TbReportAnalytics></Link>)
+                            "")
+                    }
+                    {
+                        hasSubmitted &&
+                        <Link to={`/result/${_id}/${user?.email}`} className="text-4xl hover:bg-slate-400 tooltip" data-tip={"Result"}><TbReportAnalytics ></TbReportAnalytics></Link>
                     }
                 </div>
             </div>
