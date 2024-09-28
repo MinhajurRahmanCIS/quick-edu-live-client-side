@@ -35,7 +35,7 @@ const Feature = () => {
             </div>
             <div className="card bg-base-100 shadow-xl border py-20">
                 <div className="card-body flex flex-col items-center justify-center">
-                    <h2 className="text-8xl flex"><RiLiveLine className="text-xs text-blue-400" /> <GiVideoConference  /> </h2>
+                    <h2 className="text-8xl flex"><RiLiveLine className="text-lg" /> <GiVideoConference  /> </h2>
                     <p className="text-xl font-semibold">Live Class</p>
                 </div>
             </div>
