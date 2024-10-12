@@ -45,16 +45,20 @@ Quick Edu Live is an Educational Platform. With Ai Classroom Feature. It makes e
 ·         Teachers can View Assignment Question.\
 ·         Teachers can Print Assignment Question.\
 ·         Teachers can View Assignment submission.\
+·         Teachers Can Generate Modules.\
 ·         Student can Join in a Classroom via Classroom Code.\
 ·         Student can View Announcement.\
 ·         Student can Reply Announcement.\
 ·         Student can Participant in Quizzes which has been generated or posted.\
 ·         Student can Gets Instant Marks after submitting Quizzes.\
 ·         Student can Participant in Assignment which has been generated or posted.\
+·         Student get class suggestion to enroll.\
 ·         Both User (Teacher or Student) Can view What's New.\
 ·         Both User (Teacher or Student) Can give feedback.\
 ·         Both User (Teacher or Student) Can give Report for problem.\
 ·         Both User (Teacher or Student) Can view Helps to get helps.\
+·         Both User (Teacher or Student) Can Generate Presentation.\
+·         Both User (Teacher or Student) Can join live class.\
 
 Project Deploy Site For Client side: https://quickedulive.web.app
   \
