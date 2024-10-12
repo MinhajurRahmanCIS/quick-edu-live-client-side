@@ -9,7 +9,7 @@ const PaperSummery = () => {
     const { data: paperChecking = [], isLoading } = useQuery({
         queryKey: ["PaperChecking", id],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/check/${id}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/check/${id}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

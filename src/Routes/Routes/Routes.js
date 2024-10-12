@@ -37,8 +37,10 @@ import MyPresentation from "../../Pages/Presentation/MyPresentation/MyPresentati
 import { io } from "socket.io-client";
 import QHome from "../../Pages/MyHome/QuickClass/QuickMeet/QHome";
 import Room from "../../Pages/MyHome/QuickClass/QuickMeet/Room";
+import Module from "../../Pages/Module/Module/Module";
+import MyModule from "../../Pages/Module/MyModule/MyModule";
 
-const socket = io('https://meet-indol-five.vercel.app');
+const socket = io('https://meet-p57l.onrender.com');
 
 const router = createBrowserRouter([
     //Home Directory
@@ -129,6 +131,15 @@ const router = createBrowserRouter([
                 path: "/myhome/mypresentation",
                 element: <PrivateRoute><MyPresentation></MyPresentation></PrivateRoute>
             },
+            {
+                path: "/myhome/module",
+                element: <PrivateRoute><Module></Module></PrivateRoute>
+            },
+            {
+                path: "/myhome/mymodule",
+                element: <PrivateRoute><MyModule></MyModule></PrivateRoute>
+            },
+            
             {
                 path: "/myhome/classinfo",
                 element: <PrivateRoute><ClassLayout></ClassLayout></PrivateRoute>,

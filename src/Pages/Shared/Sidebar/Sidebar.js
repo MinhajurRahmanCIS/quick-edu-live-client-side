@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CgHomeAlt } from 'react-icons/cg';
 import { FaGraduationCap } from "react-icons/fa";
-import { MdOutlineLiveHelp } from "react-icons/md";
+import { MdOutlineLiveHelp, MdOutlineViewModule } from "react-icons/md";
 import { GrScan } from "react-icons/gr";
 import { LuFileScan, LuPresentation } from "react-icons/lu";
 import { FcDocument } from "react-icons/fc";
@@ -12,6 +12,8 @@ import useTeacher from '../../../hooks/useTeacher';
 import usePremium from '../../../hooks/UsePremium';
 import { RiPresentationLine } from 'react-icons/ri';
 import { BsFileEarmarkSlides } from 'react-icons/bs';
+import { VscFileSubmodule } from 'react-icons/vsc';
+import { GoFileSubmodule } from 'react-icons/go';
 const Sidebar = ({ classes, enrollClasses }) => {
     const { user } = useContext(AuthContext);
     const [isTeacher] = useTeacher(user?.email);
@@ -69,15 +71,28 @@ const Sidebar = ({ classes, enrollClasses }) => {
 
                 <ul className="menu">
                     <li>
-                        <details open>
+                        <details close>
                             <summary className="text-xl font-bold"><RiPresentationLine />Ai Presentation</summary>
                             <ul className="font-semibold">
                                 <li className="text-xl font-bold"><Link to="/myhome/presentation"> <LuPresentation />Generate Presentation</Link></li>
-                                <li className="text-xl font-bold"><Link to="/myhome/mypresentation"> <BsFileEarmarkSlides />My Presentation</Link></li>
+                                <li className="text-xl font-bold mt-0.5"><Link to="/myhome/mypresentation"> <BsFileEarmarkSlides />My Presentation</Link></li>
                             </ul>
                         </details>
                     </li>
                 </ul>
+
+                <ul className="menu">
+                    <li>
+                        <details close>
+                            <summary className="text-xl font-bold"><VscFileSubmodule  />Ai Module</summary>
+                            <ul className="font-semibold">
+                                <li className="text-xl font-bold"><Link to="/myhome/module"> <GoFileSubmodule  />Generate Module</Link></li>
+                                <li className="text-xl font-bold mt-0.5"><Link to="/myhome/mymodule"> <MdOutlineViewModule  />My Module</Link></li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+
                 <li className="text-xl font-bold"><Link to="/myhome/help">  <MdOutlineLiveHelp></MdOutlineLiveHelp>Help</Link></li>
             </ul>
         </div>

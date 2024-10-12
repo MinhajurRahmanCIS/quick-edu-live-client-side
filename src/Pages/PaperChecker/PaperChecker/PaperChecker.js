@@ -75,7 +75,7 @@ const PaperChecker = () => {
                             questionImg,
                             answerImg
                         };
-                        fetch("https://quick-edu-live-server-side.vercel.app/check", {
+                        fetch("https://quick-edu-live-server-side.onrender.com/check", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json",

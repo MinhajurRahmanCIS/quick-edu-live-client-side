@@ -50,7 +50,7 @@ const ProfileMenu = () => {
                     <li>
                         <Link to="/myhome/whatsnew" className="justify-between">
                             Whats New
-                            <span className="badge">Version 0.5</span>
+                            <span className="badge">Version 0.9</span>
                         </Link>
                     </li>
                     <li><Link to="/myhome/report">Report a Problem</Link></li>
