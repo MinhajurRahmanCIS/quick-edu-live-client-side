@@ -40,7 +40,7 @@ const MyPresentation = () => {
         presentation.slides.forEach(slide => {
             const pptSlide = pptx.addSlide();
             pptSlide.addText(slide.title, { x: 1, y: 1, fontSize: 20, bold: true });
-            pptSlide.addText(slide.content, { x: 1, y: 2, fontSize: 12 });
+            pptSlide.addText(slide.content, { x: 1, y: 2.5, fontSize: 12 });
         });
 
         pptx.writeFile({ fileName: `${presentation.topic}.pptx` });
