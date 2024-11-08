@@ -66,7 +66,7 @@ const Sidebar = ({ classes, enrollClasses }) => {
                             </li>
                         </ul>
                         :
-                        isTeacher && <li className="text-xl"><Link to="/myhome/checkout" className="btn btn-neutral font-bold text-[#d4af37]"><IoDiamond></IoDiamond>Ai Presentation Maker</Link></li>
+                        isTeacher && <li className="text-xl"><Link to="/myhome/checkout" className="btn btn-neutral font-bold text-[#d4af37]"><IoDiamond></IoDiamond>Ai Paper Checker</Link></li>
                 }
 
                 <ul className="menu">
@@ -84,10 +84,10 @@ const Sidebar = ({ classes, enrollClasses }) => {
                 <ul className="menu">
                     <li>
                         <details close>
-                            <summary className="text-xl font-bold"><VscFileSubmodule  />Ai Module</summary>
+                            <summary className="text-xl font-bold"><VscFileSubmodule  />Ai Course</summary>
                             <ul className="font-semibold">
-                                <li className="text-xl font-bold"><Link to="/myhome/module"> <GoFileSubmodule  />Generate Module</Link></li>
-                                <li className="text-xl font-bold mt-0.5"><Link to="/myhome/mymodule"> <MdOutlineViewModule  />My Module</Link></li>
+                                <li className="text-xl font-bold"><Link to="/myhome/module"> <GoFileSubmodule  />Generate Course Module</Link></li>
+                                <li className="text-xl font-bold mt-0.5"><Link to="/myhome/mymodule"> <MdOutlineViewModule  />My Course</Link></li>
                             </ul>
                         </details>
                     </li>
