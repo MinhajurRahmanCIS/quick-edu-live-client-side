@@ -11,11 +11,12 @@ const Module = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data)
     try {
-      const response = await fetch('https://quick-edu-live-server-side.vercel.app/module', {
+      const response = await fetch('https://quick-edu-live-server-side.onrender.com/module', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'content-type': 'application/json' 
+        },
         body: JSON.stringify({ ...data, email: user.email }),
       });
 
