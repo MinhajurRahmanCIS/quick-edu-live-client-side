@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet-async';
@@ -9,22 +9,27 @@ const Module = () => {
   const { user } = useContext(AuthContext);
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
-      const response = await fetch('https://quick-edu-live-server-side.onrender.com/module', {
+      const response = await fetch('http://localhost:5000/module', {
         method: 'POST',
-        headers: { 
-          'content-type': 'application/json' 
-        },
+        headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ ...data, email: user.email }),
       });
 
       if (!response.ok) {
+        setLoading(false);
         throw new Error('Failed to create module');
       }
 
-      // const result = await response.json();
+      const result = await response.json();
+      if(result.id){
+        setLoading(false);
+      }
+
       toast.success('Module created successfully');
       reset();
       navigate("/myhome/mymodule");
@@ -34,18 +39,15 @@ const Module = () => {
   };
 
   return (
-    <div className="hero min-h-screen">
+    <div className="hero min-h-96 px-5">
       <Helmet>
-        <title>Create Course Module</title>
+        <title>Create Course</title>
       </Helmet>
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl border">
+      <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-2xl border">
         <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
-          <h2 className="text-2xl font-bold mb-5 text-center">Create Course Module</h2>
+          <h2 className="text-2xl font-bold mb-5 text-center">Create Course</h2>
 
           <div className="form-control">
-            <label className="label">
-              <span className="label-text">Course Name</span>
-            </label>
             <input
               {...register('name', { required: 'Name is required' })}
               type="text"
@@ -55,7 +57,7 @@ const Module = () => {
             {errors.name && <span className="text-error text-sm mt-1">{errors.name.message}</span>}
           </div>
 
-          <div className="form-control">
+          {/* <div className="form-control">
             <label className="label">
               <span className="label-text">Level</span>
             </label>
@@ -63,13 +65,13 @@ const Module = () => {
               {...register('level', { required: 'Level is required' })}
               className="select select-bordered w-full"
             >
-              <option selected disabled>Select Level</option>
+              <option disabled>Select Level</option>
               <option value="beginner">Beginner</option>
               <option value="intermediate">Intermediate</option>
-              {/* <option value="advance">Advance</option> */}
+              <option value="advance">Advance</option>
             </select>
             {errors.level && <span className="text-error text-sm mt-1">{errors.level.message}</span>}
-          </div>
+          </div> */}
 
           {/* <div className="form-control">
             <label className="label">
@@ -84,7 +86,15 @@ const Module = () => {
           </div> */}
 
           <div className="form-control mt-6">
-            <button type="submit" className="btn btn-neutral">Create Module</button>
+
+            {
+              !loading ?
+                <button type="submit" className="btn btn-neutral">Create</button>
+                :
+                <div className="flex justify-center items-center">
+                  <span className="loading loading-bars loading-md"></span>
+                </div>
+            }
           </div>
         </form>
       </div>

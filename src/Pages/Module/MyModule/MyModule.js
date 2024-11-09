@@ -1,9 +1,45 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../../contexts/AuthProvider';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../../Shared/Loading/Loading';
+import MyModuleCard from './MyModuleCard';
 
 const MyModule = () => {
+    const { user } = useContext(AuthContext);
+
+    const { data: courseModules, isLoading: courseModulesLoading, error, refetch } = useQuery({
+        queryKey: ['courseModules', user.email],
+        queryFn: async () => {
+            const response = await fetch(`http://localhost:5000/module/${user.email}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }
+    });
+
+    if (courseModulesLoading) {
+        return <Loading />
+    }
+
     return (
-        <div>
-            MyModule
+        <div className="container mx-auto px-4 my-10">
+            <h2 className="text-4xl font-bold mb-10 text-center">My Course</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                {
+                    courseModules?.length > 1
+                        ?
+                        courseModules?.map(courseModule =>
+                            <MyModuleCard
+                                key={courseModule._id}
+                                courseModule={courseModule}
+                                email={user.email}
+                                refetch={refetch}
+                            />)
+                        :
+                        <p>No presentations found.</p>
+                }
+            </div>
         </div>
     );
 };
