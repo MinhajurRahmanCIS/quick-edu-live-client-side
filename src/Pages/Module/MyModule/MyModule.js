@@ -10,7 +10,7 @@ const MyModule = () => {
     const { data: courseModules, isLoading: courseModulesLoading, error, refetch } = useQuery({
         queryKey: ['courseModules', user.email],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:5000/module/${user.email}`);
+            const response = await fetch(`https://quick-edu-live-server-side.vercel.app/module/${user.email}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -21,13 +21,14 @@ const MyModule = () => {
     if (courseModulesLoading) {
         return <Loading />
     }
+    console.log(courseModules)
 
     return (
         <div className="container mx-auto px-4 my-10">
             <h2 className="text-4xl font-bold mb-10 text-center">My Course</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                 {
-                    courseModules?.length > 1
+                    courseModules?.length > 0
                         ?
                         courseModules?.map(courseModule =>
                             <MyModuleCard
