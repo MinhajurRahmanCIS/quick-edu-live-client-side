@@ -10,18 +10,18 @@ const MyModule = () => {
     const { data: courseModules, isLoading: courseModulesLoading, error, refetch } = useQuery({
         queryKey: ['courseModules', user.email],
         queryFn: async () => {
-            const response = await fetch(`https://quick-edu-live-server-side.vercel.app/module/${user.email}`);
+            const response = await fetch(`https://quick-edu-live-server-side.onrender.com/module/${user.email}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         }
     });
+    console.log(courseModules)
 
     if (courseModulesLoading) {
         return <Loading />
     }
-    console.log(courseModules)
 
     return (
         <div className="container mx-auto px-4 my-10">
@@ -38,7 +38,7 @@ const MyModule = () => {
                                 refetch={refetch}
                             />)
                         :
-                        <p>No presentations found.</p>
+                        <p className="text-2xl">No Course found.</p>
                 }
             </div>
         </div>

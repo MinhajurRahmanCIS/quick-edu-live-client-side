@@ -52,6 +52,7 @@ Quick Edu Live is an Educational Platform. With Ai Classroom Feature. It makes e
 ·         Student can Participant in Quizzes which has been generated or posted.\
 ·         Student can Gets Instant Marks after submitting Quizzes.\
 ·         Student can Participant in Assignment which has been generated or posted.\
+·         Student can Create in course module and participate un course and give exams there also an ai teacher to teach the each topics properly.\
 ·         Student get class suggestion to enroll.\
 ·         Both User (Teacher or Student) Can view What's New.\
 ·         Both User (Teacher or Student) Can give feedback.\

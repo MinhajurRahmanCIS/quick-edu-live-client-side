@@ -34,6 +34,7 @@ const Module = () => {
       reset();
       navigate("/myhome/mymodule");
     } catch (error) {
+      setLoading(false);
       toast.error(`Error creating module: ${error.message}`);
     }
   };

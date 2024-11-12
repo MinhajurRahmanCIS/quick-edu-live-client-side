@@ -6,7 +6,7 @@ const MyModuleCard = ({ courseModule, refetch }) => {
     const navigate = useNavigate();
 
     const handelStart = async (id) => {
-        const res = await fetch(`https://quick-edu-live-server-side.vercel.app/specificModule/${id}/${email}`, {
+        const res = await fetch(`https://quick-edu-live-server-side.onrender.com/specificModule/${id}/${email}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json"
@@ -15,7 +15,7 @@ const MyModuleCard = ({ courseModule, refetch }) => {
         const data = res.json();
 
         refetch();
-        navigate('/')
+        navigate(`/myhome/startmodule/${_id}`)
     }
 
     return (
@@ -26,7 +26,7 @@ const MyModuleCard = ({ courseModule, refetch }) => {
                 <h4 className="">Table of Contents</h4>
                 <p>
                     {chapters.length > 1 &&
-                        chapters?.map((c, i) =>
+                        chapters?.slice(0, (chapters.length - 1))?.map((c, i) =>
                             <ul className="list-disc px-5" key={i}>
                                 <li className="font-semibold text-xs mt-2">{c.title}</li>
                             </ul>
@@ -36,7 +36,7 @@ const MyModuleCard = ({ courseModule, refetch }) => {
                 <div className="card-actions justify-end">
                     {
                         courseModule?.courseStartedAt ?
-                            <Link className="btn btn-neutral btn-outline">Continue</Link>
+                            <Link to={`/myhome/startmodule/${_id}`} className="btn btn-neutral btn-outline">Continue</Link>
                             :
                             <Link onClick={() => handelStart(_id)} className="btn btn-neutral">Start</Link>
                     }

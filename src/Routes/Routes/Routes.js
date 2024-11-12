@@ -39,6 +39,7 @@ import QHome from "../../Pages/MyHome/QuickClass/QuickMeet/QHome";
 import Room from "../../Pages/MyHome/QuickClass/QuickMeet/Room";
 import Module from "../../Pages/Module/Module/Module";
 import MyModule from "../../Pages/Module/MyModule/MyModule";
+import StartModule from "../../Pages/Module/StartModule/StartModule";
 
 const socket = io('https://meet-p57l.onrender.com');
 
@@ -138,6 +139,10 @@ const router = createBrowserRouter([
             {
                 path: "/myhome/mymodule",
                 element: <PrivateRoute><MyModule></MyModule></PrivateRoute>
+            },
+            {
+                path: "/myhome/startmodule/:id",
+                element: <PrivateRoute><StartModule></StartModule></PrivateRoute>
             },
             
             {
