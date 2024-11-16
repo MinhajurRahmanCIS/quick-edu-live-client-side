@@ -55,7 +55,7 @@ const Feature = () => {
             <div className="card bg-base-100 shadow-xl border py-20 hover:bg-slate-200">
                 <div className="card-body flex flex-col items-center justify-center text-center">
                     <h2 className="text-8xl flex"><SiGooglebard className="text-xs text-blue-400" /> <GiArtificialHive   /> </h2>
-                    <p className="text-xl font-semibold ms-1">AI Course Creation with AI Teacher Narration</p>
+                    <p className="text-xl font-semibold ms-1">AI Course Creation with Teacher Narration</p>
                 </div>
             </div>
         </div>

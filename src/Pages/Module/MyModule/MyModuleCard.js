@@ -36,7 +36,20 @@ const MyModuleCard = ({ courseModule, refetch }) => {
                 <div className="card-actions justify-end">
                     {
                         courseModule?.courseStartedAt ?
-                            <Link to={`/myhome/startmodule/${_id}`} className="btn btn-neutral btn-outline">Continue</Link>
+                            <>
+                                {
+                                    courseModule?.courseEndAt ?
+                                        <>
+                                            <Link to={`/myhome/startmodule/${_id}`} className="btn btn-neutral btn-outline">View</Link>
+
+                                            <Link to={`/myhome/certificate/`} className="btn btn-warning">Certificate</Link>
+                                        </>
+
+                                        :
+                                        <Link to={`/myhome/startmodule/${_id}`} className="btn btn-neutral btn-outline">Continue</Link>
+
+                                }
+                            </>
                             :
                             <Link onClick={() => handelStart(_id)} className="btn btn-neutral">Start</Link>
                     }

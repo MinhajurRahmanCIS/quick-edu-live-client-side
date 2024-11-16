@@ -17,7 +17,6 @@ const MyModule = () => {
             return response.json();
         }
     });
-    console.log(courseModules)
 
     if (courseModulesLoading) {
         return <Loading />

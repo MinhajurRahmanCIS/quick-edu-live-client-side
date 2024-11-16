@@ -22,7 +22,7 @@ const Module = () => {
 
       if (!response.ok) {
         setLoading(false);
-        throw new Error('Failed to create module. Please Try again!');
+        throw new Error('Failed to create module');
       }
 
       const result = await response.json();
@@ -35,7 +35,7 @@ const Module = () => {
       navigate("/myhome/mymodule");
     } catch (error) {
       setLoading(false);
-      toast.error(`Error creating module: ${error.message}. Please Try again!`);
+      toast.error(`Error creating module: ${error.message}`);
     }
   };
 

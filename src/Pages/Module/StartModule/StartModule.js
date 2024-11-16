@@ -1,20 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useLoadModule from '../../../hooks/useLoadModule';
 import Loading from '../../Shared/Loading/Loading';
 import ChaptersProgress from './ChaptersProgress';
 import ModuleContent from './ModuleContent';
+import toast from 'react-hot-toast';
+import StartMcq from './StartMcq';
+import McqResult from './McqResult';
 
 const StartModule = () => {
     const [subtitle, setSubtitle] = useState("");
+    const [startMCQ, setStartMCQ] = useState(true);
+    const [result, setResult] = useState(false);
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const [chapterNumber, setChapterNumber] = useState(0);
     const { courseModule, courseModuleLoading, refetch } = useLoadModule(id, user.email);
 
     const speak = (number) => {
+        setSubtitle("");
         if ('speechSynthesis' in window) {
+            toast.loading("Loading...", { duration: 5000 })
             setTimeout(() => {
                 const script = courseModule?.chapters[number]?.teacherScript;
                 if (!script) return; // Ensure the script exists
@@ -41,6 +48,8 @@ const StartModule = () => {
     const speakTurnOff = () => {
         if (window.speechSynthesis.speaking) {
             window.speechSynthesis.cancel();
+            toast("Stopped", { icon: '🚫', });
+            setSubtitle("");
         } else {
 
         }
@@ -78,6 +87,7 @@ const StartModule = () => {
         if (chapterNumber + 1 < courseModule?.chapters?.length) {
             setChapterNumber(chapterNumber + 1);
             speak(chapterNumber + 1);
+            setSubtitle("");
         }
     };
 
@@ -85,57 +95,122 @@ const StartModule = () => {
         if (chapterNumber > 0) {
             setChapterNumber(chapterNumber - 1);
             speak(chapterNumber - 1);
+            setSubtitle("");
+            setStartMCQ(true);
         }
     };
 
+    const handelNext = () => {
+        toast.success("Answer It!", { duration: 2000 });
+        setStartMCQ(false);
+        setSubtitle("");
+    };
 
     return (
-        <div className="container mx-auto py-5">
-            <h1 className="text-center text-3xl font-bold mb-8">Chapters Progress</h1>
-            <div className="flex justify-center px-4">
-                <ChaptersProgress
-                    chapters={courseModule?.chapters}
-                    chapterNumber={chapterNumber}
-                />
-            </div>
-
-            <div className="my-10 px-5">
-                <ModuleContent
-                    content={courseModule?.chapters[chapterNumber]}
-                    speak={speak}
-                    speakTurnOff={speakTurnOff}
-                    chapterNumber={chapterNumber}
-                />
-            </div>
-
-            <div className="flex justify-between items-center">
-                <button
-                    onClick={handelPrevChapter}
-                    className="btn btn-neutral"
-                    disabled={chapterNumber === 0}
-                >
-                    Previous
-                </button>
-
-                <button
-                    onClick={handelNextChapter}
-                    className="btn btn-neutral"
-                    disabled={chapterNumber === courseModule?.chapters?.length - 1}
-                >
-                    Next
-                </button>
-            </div>
-
+        <div className="container mx-auto py-8">
             {
-                subtitle &&
-                <div className="my-5 px-2">
-                <p className="text-xl font-bold mb-2">Ai Teacher Speaking : </p>
-                    <div id="subtitle-container" className="bg-stone-300 text-xl font-semibold  text-justify leading-loose px-2" >
-                        {subtitle}
-                    </div>
-                </div>
+                startMCQ ?
+
+                    <>
+                        {
+                            !result &&
+                            <>
+                                <h1 className="text-center text-3xl font-bold mb-8">Chapters Progress</h1>
+                                <div className="flex justify-center px-4">
+                                    <ChaptersProgress
+                                        chapters={courseModule?.chapters}
+                                        chapterNumber={chapterNumber}
+                                    />
+                                </div>
+
+                                {
+                                    subtitle &&
+                                    <div className="my-5 px-5">
+                                        <p className="text-xl font-bold mb-2">Teacher Narration : </p>
+                                        <div id="subtitle-container" className="bg-stone-300 text-xl font-semibold  text-justify leading-loose px-2" >
+                                            {subtitle}
+                                        </div>
+                                    </div>
+                                }
+
+                                <div className="my-10 px-5">
+                                    <ModuleContent
+                                        content={courseModule?.chapters[chapterNumber]}
+                                        speak={speak}
+                                        speakTurnOff={speakTurnOff}
+                                        chapterNumber={chapterNumber}
+                                        setResult={setResult}
+                                    />
+                                </div>
+
+                                <div className="flex justify-between items-center px-5">
+                                    <button
+                                        onClick={handelPrevChapter}
+                                        className="btn btn-neutral"
+                                        disabled={chapterNumber === 0}
+                                    >
+                                        Previous
+                                    </button>
+
+                                    {
+                                        !courseModule?.chapters[chapterNumber].chapterEndAt ?
+                                            <button
+                                                onClick={handelNext}
+                                                className="btn btn-neutral"
+                                            >
+                                                Next
+                                            </button>
+                                            :
+                                            <>
+                                                {
+                                                    courseModule?.chapters?.length === chapterNumber + 1
+                                                        ?
+                                                        <Link  className="btn btn-neutral" to="/myhome/certificate">Certificate </Link>
+                                                        :
+
+                                                        <button
+                                                            onClick={handelNextChapter}
+                                                            className="btn btn-neutral"
+                                                            disabled={chapterNumber === courseModule?.chapters?.length - 1}
+                                                        >
+                                                            Next
+                                                        </button>
+                                                }
+                                            </>
+
+                                    }
+
+                                </div>
+                            </>
+                        }
+
+                    </>
+                    :
+                    <>
+                        <h1 className="text-3xl font-bold text-center">Test {chapterNumber + 1} </h1>
+                        <div className="divider divider-neutral"></div>
+                        <StartMcq
+                            mcq={courseModule?.chapters[chapterNumber].mcqs}
+                            id={id}
+                            email={user?.email}
+                            index={chapterNumber}
+                            setStartMCQ={setStartMCQ}
+                            refetch={refetch}
+                            setResult={setResult}
+                            chapterLength={courseModule?.chapters?.length}
+                        />
+                    </>
             }
 
+            {
+                result &&
+
+                <McqResult
+                    setResult={setResult}
+                    mcq={courseModule?.chapters[chapterNumber]}
+                    courseModuleLoading={courseModuleLoading}
+                />
+            }
 
         </div>
     );

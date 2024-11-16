@@ -40,6 +40,7 @@ import Room from "../../Pages/MyHome/QuickClass/QuickMeet/Room";
 import Module from "../../Pages/Module/Module/Module";
 import MyModule from "../../Pages/Module/MyModule/MyModule";
 import StartModule from "../../Pages/Module/StartModule/StartModule";
+import Certificate from "../../Pages/Module/StartModule/Certificate";
 
 const socket = io('https://meet-p57l.onrender.com');
 
@@ -144,7 +145,10 @@ const router = createBrowserRouter([
                 path: "/myhome/startmodule/:id",
                 element: <PrivateRoute><StartModule></StartModule></PrivateRoute>
             },
-            
+            {
+                path: "/myhome/certificate",
+                element: <PrivateRoute><Certificate></Certificate></PrivateRoute>
+            },
             {
                 path: "/myhome/classinfo",
                 element: <PrivateRoute><ClassLayout></ClassLayout></PrivateRoute>,
