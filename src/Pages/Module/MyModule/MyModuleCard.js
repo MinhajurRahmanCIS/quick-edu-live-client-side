@@ -42,7 +42,7 @@ const MyModuleCard = ({ courseModule, refetch }) => {
                                         <>
                                             <Link to={`/myhome/startmodule/${_id}`} className="btn btn-neutral btn-outline">View</Link>
 
-                                            <Link to={`/myhome/certificate/`} className="btn btn-warning">Certificate</Link>
+                                            <Link to={`/myhome/certificate/${_id}`} className="btn btn-warning">Certificate</Link>
                                         </>
 
                                         :

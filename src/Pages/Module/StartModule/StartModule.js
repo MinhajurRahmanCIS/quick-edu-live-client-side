@@ -165,7 +165,7 @@ const StartModule = () => {
                                                 {
                                                     courseModule?.chapters?.length === chapterNumber + 1
                                                         ?
-                                                        <Link  className="btn btn-neutral" to="/myhome/certificate">Certificate </Link>
+                                                        <Link  className="btn btn-neutral" to={`/myhome/certificate/${id}`}>Certificate </Link>
                                                         :
 
                                                         <button

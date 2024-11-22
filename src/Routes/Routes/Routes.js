@@ -146,7 +146,7 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><StartModule></StartModule></PrivateRoute>
             },
             {
-                path: "/myhome/certificate",
+                path: "/myhome/certificate/:id",
                 element: <PrivateRoute><Certificate></Certificate></PrivateRoute>
             },
             {
