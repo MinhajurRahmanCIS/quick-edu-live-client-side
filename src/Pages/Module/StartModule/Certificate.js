@@ -32,8 +32,8 @@ const Certificate = () => {
 
     return (
         <div className="relative min-h-screen bg-gray-100 p-4 font-mono">
-            <div 
-                className="flex items-center justify-center min-h-screen" 
+            <div
+                className="flex items-center justify-center min-h-screen"
                 ref={printRef}
             >
                 <div className="w-full max-w-3xl bg-white border border-gray-300 rounded-lg shadow-lg p-8 text-center">
@@ -59,8 +59,8 @@ const Certificate = () => {
                 </div>
             </div>
             {/* Print button */}
-            <button 
-                onClick={handelPrint} 
+            <button
+                onClick={handelPrint}
                 className="btn btn-neutral fixed bottom-4 right-4 px-6 py-3 "
             >
                 Print Certificate

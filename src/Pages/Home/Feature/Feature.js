@@ -36,12 +36,6 @@ const Feature = () => {
             </div>
             <div className="card bg-base-100 shadow-xl border py-20 hover:bg-slate-200">
                 <div className="card-body flex flex-col items-center justify-center text-center">
-                    <h2 className="text-8xl flex"><SiGooglebard className="text-xs text-blue-400" /> <GrDocumentPdf   /> </h2>
-                    <p className="text-xl font-semibold">Ai Module Generator</p>
-                </div>
-            </div>
-            <div className="card bg-base-100 shadow-xl border py-20 hover:bg-slate-200">
-                <div className="card-body flex flex-col items-center justify-center text-center">
                     <h2 className="text-8xl flex"><SiGooglebard className="text-xs text-blue-400" /> <MdOutlineDocumentScanner   /> </h2>
                     <p className="text-xl font-semibold">Ai Paper Checker</p>
                 </div>

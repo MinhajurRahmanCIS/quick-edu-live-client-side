@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
@@ -6,18 +6,20 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const Presentation = () => {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = async (data) => {
+        setLoading(true);
         const presentationData = {
             ...data,
             email: user.email
         };
 
         try {
-            const response = await fetch(`https://quick-edu-live-server-side.vercel.app/presentation/${user.email}`, {
+            const response = await fetch(`https://quick-edu-live-server-side.onrender.com/presentation/${user.email}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,19 +28,22 @@ const Presentation = () => {
             });
 
             if (response.ok) {
+                setLoading(false);
                 toast.success('Presentation created successfully!');
                 navigate('/myhome/mypresentation')
             } else {
                 toast.error('Failed to create presentation');
+                setLoading(false);
             }
         } catch (error) {
+            setLoading(false);
             console.error('Error:', error);
             toast.error('An error occurred');
         }
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10">
+        <div className="hero min-h-screen">
             <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded-lg border px-20 py-10 mb-4">
                 <h1 className="text-3xl font-bold mb-2">Ai Presentation Generate</h1>
                 <div className="mb-4">
@@ -98,12 +103,14 @@ const Presentation = () => {
                     {errors.description && <span className="text-red-500 text-xs italic">This field is required</span>}
                 </div>
                 <div className="flex items-center justify-center">
-                    <button
-                        className="btn btn-neutral"
-                        type="submit"
-                    >
-                        Generate Presentation
-                    </button>
+                    {
+                        !loading ?
+                            <button className="btn btn-neutral" type="submit">Generate Presentation</button>
+                            :
+                            <div className="flex justify-center items-center">
+                                <span className="loading loading-bars loading-md"></span>
+                            </div>
+                    }
                 </div>
             </form>
         </div>
