@@ -18,7 +18,7 @@ const ReportAProblem = () => {
             title,
             message
         }
-        fetch("https://quick-edu-live-server-side.vercel.app/report", {
+        fetch("https://quick-edu-live-server-side.onrender.com/report", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

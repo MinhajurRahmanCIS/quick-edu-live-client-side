@@ -29,7 +29,7 @@ const ClassModal = ({ refetch, modal, setModal }) => {
                     createdDate: format(currentDate, "d/MM/yyyy HH:mm:ss")
                 }
 
-                fetch("https://quick-edu-live-server-side.vercel.app/classes", {
+                fetch("https://quick-edu-live-server-side.onrender.com/classes", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",

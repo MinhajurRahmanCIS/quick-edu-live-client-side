@@ -22,7 +22,7 @@ const MyHome = () => {
     const { data: suggestions = [], suggestionsIsLoading, refetch: suggestionsRefetch } = useQuery({
         queryKey: ["Suggestion"],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/suggestedClasses/${user?.email}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/suggestedClasses/${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

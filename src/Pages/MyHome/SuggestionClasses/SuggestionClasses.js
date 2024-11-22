@@ -24,7 +24,7 @@ const SuggestionClasses = ({ suggest, suggestionsRefetch }) => {
             confirmButtonText: "Enroll!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch("https://quick-edu-live-server-side.vercel.app/enrollments", {
+                fetch("https://quick-edu-live-server-side.onrender.com/enrollments", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",

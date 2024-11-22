@@ -26,7 +26,7 @@ const MyPresentation = () => {
     const { data: presentations, isLoading, error } = useQuery({
         queryKey: ['presentations', user.email],
         queryFn: async () => {
-            const response = await fetch(`https://quick-edu-live-server-side.vercel.app/presentation/${user.email}`);
+            const response = await fetch(`https://quick-edu-live-server-side.onrender.com/presentation/${user.email}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

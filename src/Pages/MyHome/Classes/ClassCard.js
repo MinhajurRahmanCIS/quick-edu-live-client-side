@@ -30,7 +30,7 @@ const ClassCard = ({ c, refetch }) => {
             confirmButtonText: "Delete Class"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://quick-edu-live-server-side.vercel.app/classes/${id}`, {
+                fetch(`https://quick-edu-live-server-side.onrender.com/classes/${id}`, {
                 method: "DELETE",
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`

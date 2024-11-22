@@ -9,7 +9,7 @@ const Stat = () => {
     const { data: userStat = [], isLoading } = useQuery({
         queryKey: ["User Stat"],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/users`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/users`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

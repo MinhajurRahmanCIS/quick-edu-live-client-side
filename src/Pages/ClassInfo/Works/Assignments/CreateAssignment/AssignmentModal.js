@@ -21,7 +21,7 @@ const AssignmentModal = ({ modal, setModal, refetch }) => {
         setResultLoading(true);
         // console.log(data)
         data.classId = modal._id;
-        fetch("https://quick-edu-live-server-side.vercel.app/classwork", {
+        fetch("https://quick-edu-live-server-side.onrender.com/classwork", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

@@ -12,7 +12,7 @@ const ClassPeople = () => {
     const { data: peoples = [], isLoading, refetch } = useQuery({
         queryKey: ["peoples", id],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/enrollmentPeople?classId=${id}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/enrollmentPeople?classId=${id}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

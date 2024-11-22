@@ -19,7 +19,7 @@ const AllAnnouncement = ({ announcement, refetch, setModal }) => {
             confirmButtonText: "Delete Announcement"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://quick-edu-live-server-side.vercel.app/announcements/${id}`, {
+                fetch(`https://quick-edu-live-server-side.onrender.com/announcements/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem("quickEdu-token")}`

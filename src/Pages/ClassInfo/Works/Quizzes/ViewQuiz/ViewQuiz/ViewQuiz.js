@@ -16,7 +16,7 @@ const ViewQuiz = () => {
     const { data: viewQuiz = [], isLoading } = useQuery({
         queryKey: ["viewQuiz", id],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/classwork/${id}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/classwork/${id}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

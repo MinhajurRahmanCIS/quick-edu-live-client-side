@@ -18,7 +18,7 @@ const ClassEnrollCard = ({c, refetch}) => {
             confirmButtonText: "Delete Enroll Class"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://quick-edu-live-server-side.vercel.app/enrollments/${id}`, {
+                fetch(`https://quick-edu-live-server-side.onrender.com/enrollments/${id}`, {
                 method: "DELETE",
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`

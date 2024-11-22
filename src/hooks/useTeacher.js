@@ -5,7 +5,7 @@ const useTeacher = email => {
     const [isTeacherLoading, setIsTeacherLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`https://quick-edu-live-server-side.vercel.app/users/teacher/${email}`,{
+            fetch(`https://quick-edu-live-server-side.onrender.com/users/teacher/${email}`,{
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

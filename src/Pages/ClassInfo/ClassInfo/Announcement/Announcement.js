@@ -10,7 +10,7 @@ const Announcement = ({ classData, user }) => {
     const { data: announcements = [], isLoading, refetch } = useQuery({
         queryKey: ["announcements", classData?._id],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.vercel.app/announcements?classId=${classData?._id}&sorted=${-1}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/announcements?classId=${classData?._id}&sorted=${-1}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

@@ -38,7 +38,7 @@ const FeedBack = () => {
             date: format(newDate, 'dd-MMM-yyyy'),
         };
 
-        fetch("https://quick-edu-live-server-side.vercel.app/feedback", {
+        fetch("https://quick-edu-live-server-side.onrender.com/feedback", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
