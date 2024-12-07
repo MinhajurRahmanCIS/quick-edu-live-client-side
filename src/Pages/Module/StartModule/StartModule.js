@@ -12,6 +12,7 @@ import McqResult from './McqResult';
 const StartModule = () => {
     const [subtitle, setSubtitle] = useState("");
     const [startMCQ, setStartMCQ] = useState(true);
+    const [lipsynch, setLipsynch] = useState(false);
     const [result, setResult] = useState(false);
     const { user } = useContext(AuthContext);
     const { id } = useParams();
@@ -19,12 +20,13 @@ const StartModule = () => {
     const { courseModule, courseModuleLoading, refetch } = useLoadModule(id, user.email);
 
     const speak = (number) => {
-        setSubtitle("");
+        setSubtitle(""); // Clear previous subtitle
         if ('speechSynthesis' in window) {
-            toast.loading("Loading...", { duration: 5000 })
+            toast.loading("Loading...", { duration: 5000 });
             setTimeout(() => {
                 const script = courseModule?.chapters[number]?.teacherScript;
                 if (!script) return; // Ensure the script exists
+                setLipsynch(true); // Set lipsynch to true when speech synthesis starts
 
                 const utterance = new SpeechSynthesisUtterance(script);
 
@@ -38,8 +40,13 @@ const StartModule = () => {
                     setSubtitle(script.slice(0, wordEnd));
                 };
 
+                // When the speech ends, set lipsynch to false
+                utterance.onend = () => {
+                    setLipsynch(false);
+                };
+
                 window.speechSynthesis.speak(utterance);
-            }, 5000); // 5000 milliseconds = 5 seconds
+            }, 5000); // Delay before starting speech
         } else {
             alert("Sorry, your browser doesn't support text-to-speech!");
         }
@@ -50,6 +57,7 @@ const StartModule = () => {
             window.speechSynthesis.cancel();
             toast("Stopped", { icon: '🚫', });
             setSubtitle("");
+            setLipsynch(false);
         } else {
 
         }
@@ -64,6 +72,7 @@ const StartModule = () => {
         const handleWindowBlur = () => {
             if (window.speechSynthesis.speaking) {
                 window.speechSynthesis.cancel();
+                setLipsynch(false);
             }
         };
 
@@ -107,7 +116,23 @@ const StartModule = () => {
     };
 
     return (
-        <div className="container mx-auto py-8">
+        <div className="container mx-auto py-8 relative">
+
+            {
+                lipsynch &&
+                <div className="absolute top-0 right-0 w-60 h-60 rounded-full">
+                    {/* Animated Background */}
+                    <div className="absolute inset-0 rounded-full bg-gray-300 animate-pulse"></div>
+
+                    {/* Static Image */}
+                    <div className="flex justify-center items-center relative z-10 rounded-full">
+                    <img
+                        src="https://i.ibb.co.com/QMFGNdc/KS2o-unscreen.gif"
+                        alt=""
+                    />
+                    </div>
+                </div>
+            }
             {
                 startMCQ ?
 
@@ -165,7 +190,7 @@ const StartModule = () => {
                                                 {
                                                     courseModule?.chapters?.length === chapterNumber + 1
                                                         ?
-                                                        <Link  className="btn btn-neutral" to={`/myhome/certificate/${id}`}>Certificate </Link>
+                                                        <Link className="btn btn-neutral" to={`/myhome/certificate/${id}`}>Certificate </Link>
                                                         :
 
                                                         <button

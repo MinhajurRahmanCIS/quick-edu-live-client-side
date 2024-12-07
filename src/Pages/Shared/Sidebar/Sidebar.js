@@ -52,22 +52,6 @@ const Sidebar = ({ classes, enrollClasses }) => {
                         </details>
                     </li>
                 </ul>
-                {
-                    isTeacher && isPremium ?
-                        <ul className="menu">
-                            <li>
-                                <details close>
-                                    <summary className="text-xl font-bold"><GrScan></GrScan>Paper Checker</summary>
-                                    <ul className="font-semibold">
-                                        <li className="text-xl font-bold"><Link to="/myhome/paperchecker"> <LuFileScan></LuFileScan>Check Paper</Link></li>
-                                        <li className="text-xl font-bold mt-0.5"><Link to="/myhome/allpaper"> <FcDocument></FcDocument>All Paper</Link></li>
-                                    </ul>
-                                </details>
-                            </li>
-                        </ul>
-                        :
-                        isTeacher && <li className="text-xl"><Link to="/myhome/checkout" className="btn btn-neutral font-bold text-[#d4af37]"><IoDiamond></IoDiamond>Ai Paper Checker</Link></li>
-                }
 
                 <ul className="menu">
                     <li>
@@ -92,6 +76,23 @@ const Sidebar = ({ classes, enrollClasses }) => {
                         </details>
                     </li>
                 </ul>
+
+                {
+                    isTeacher && isPremium ?
+                        <ul className="menu">
+                            <li>
+                                <details close>
+                                    <summary className="text-xl font-bold"><GrScan></GrScan>Paper Checker</summary>
+                                    <ul className="font-semibold">
+                                        <li className="text-xl font-bold"><Link to="/myhome/paperchecker"> <LuFileScan></LuFileScan>Check Paper</Link></li>
+                                        <li className="text-xl font-bold mt-0.5"><Link to="/myhome/allpaper"> <FcDocument></FcDocument>All Paper</Link></li>
+                                    </ul>
+                                </details>
+                            </li>
+                        </ul>
+                        :
+                        isTeacher && <li className="text-xl"><Link to="/myhome/checkout" className="btn btn-neutral font-bold text-[#d4af37]"><IoDiamond></IoDiamond>Ai Paper Checker</Link></li>
+                }
 
                 <li className="text-xl font-bold"><Link to="/myhome/help">  <MdOutlineLiveHelp></MdOutlineLiveHelp>Help</Link></li>
             </ul>
