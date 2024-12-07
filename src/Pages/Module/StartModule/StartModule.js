@@ -120,17 +120,16 @@ const StartModule = () => {
 
             {
                 lipsynch &&
-                <div className="absolute top-0 right-0 w-60 h-60 rounded-full">
+                <div className="absolute top-0 left-0 w-60 h-60 rounded-full">
                     {/* Animated Background */}
-                    <div className="absolute inset-0 rounded-full bg-gray-300 animate-pulse"></div>
+                    <div className="absolute inset-0 rounded-full bg-gray-400 animate-pulse"></div>
 
                     {/* Static Image */}
-                    <div className="flex justify-center items-center relative z-10 rounded-full">
                     <img
                         src="https://i.ibb.co.com/QMFGNdc/KS2o-unscreen.gif"
                         alt=""
+                        className="relative z-10 w-full h-full object-cover rounded-full"
                     />
-                    </div>
                 </div>
             }
             {
@@ -150,7 +149,7 @@ const StartModule = () => {
 
                                 {
                                     subtitle &&
-                                    <div className="my-5 px-5">
+                                    <div className="mt-24 px-5 mb-5">
                                         <p className="text-xl font-bold mb-2">Teacher Narration : </p>
                                         <div id="subtitle-container" className="bg-stone-300 text-xl font-semibold  text-justify leading-loose px-2" >
                                             {subtitle}
