@@ -43,7 +43,7 @@ const Payment = () => {
             </div>
             <div ref={printRef}>
                 <h1 className="text-center text-5xl font-bold my-3">Payment History</h1>
-                <p className="text-center my-2">Quick Edu Live</p>
+                <p className="text-center my-2">Ai Professor</p>
             <div className="overflow-x-auto border">
                 <table className="table text-center">
                     <thead>

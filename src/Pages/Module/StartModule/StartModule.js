@@ -8,6 +8,7 @@ import ModuleContent from './ModuleContent';
 import toast from 'react-hot-toast';
 import StartMcq from './StartMcq';
 import McqResult from './McqResult';
+import lipsync from "../../../assets/images/lipsync.gif";
 
 const StartModule = () => {
     const [subtitle, setSubtitle] = useState("");
@@ -126,8 +127,9 @@ const StartModule = () => {
 
                     {/* Static Image */}
                     <img
-                        src="https://i.ibb.co.com/QMFGNdc/KS2o-unscreen.gif"
-                        alt=""
+                        loading="lazy"
+                        src={lipsync}
+                        alt="lipsync"
                         className="relative z-10 w-full h-full object-cover rounded-full"
                     />
                 </div>

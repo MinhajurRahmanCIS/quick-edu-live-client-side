@@ -53,7 +53,7 @@ const Certificate = () => {
                         </div>
                         <div className="text-center">
                             <p className="text-sm text-gray-500">Authorized by:</p>
-                            <p className="font-medium text-gray-700">Quick Edu Live</p>
+                            <p className="font-medium text-gray-700">Ai Professor</p>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ const Certificate = () => {
             {/* Print button */}
             <button
                 onClick={handelPrint}
-                className="btn btn-neutral fixed bottom-4 right-4 px-6 py-3 "
+                className="btn btn-neutral fixed top-20 right-4 px-6 py-3"
             >
                 Print Certificate
             </button>

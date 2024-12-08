@@ -15,7 +15,7 @@ const Home = () => {
         <div>
             <Helmet>
                 <title>
-                    Quick Edu Live
+                    Ai Professor
                 </title>
             </Helmet>
             <Banner></Banner>

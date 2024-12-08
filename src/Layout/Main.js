@@ -6,6 +6,7 @@ import { AuthContext } from '../contexts/AuthProvider';
 import Loading from '../Pages/Shared/Loading/Loading';
 import useClasses from '../hooks/useClasses';
 import useEnrollClasses from '../hooks/useEnrollClasses';
+import AIProfessorChatbot from '../Pages/AIProfessorChatbot/AIProfessorChatbot';
 const Main = () => {
     const { user } = useContext(AuthContext);
     const {classes, classLoading} = useClasses(user);
@@ -27,7 +28,7 @@ const Main = () => {
                     <div className="dropdown">
                     </div>
                     <label htmlFor="my-drawer-2" className="btn lg:hidden"> <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg></label>
-                    <Link to="/myhome" className="btn btn-ghost text-xl">Quick Edu Live</Link>
+                    <Link to="/myhome" className="btn btn-ghost text-xl">Ai Professor</Link>
                 </div>
                 <div className="navbar-end gap-2">
                     <ProfileMenu></ProfileMenu>
@@ -39,6 +40,7 @@ const Main = () => {
                     <div className="drawer-content">
                         {/* Page content here */}
                         <Outlet></Outlet>
+                        <AIProfessorChatbot/>
                     </div>
                     <Sidebar 
                     classes={classes.data}

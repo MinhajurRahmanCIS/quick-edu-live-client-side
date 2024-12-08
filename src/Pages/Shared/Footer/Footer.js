@@ -8,7 +8,7 @@ const Footer = () => {
                     <img className="w-1/2 drop-shadow-2xl" src="https://i.ibb.co/GMQPmpY/QEL.png" alt="" />
                 </aside> */}
                 <aside className="">
-                    <span className="btn btn-ghost text-2xl font-bold">Quick Edu Live</span>
+                    <span className="btn btn-ghost text-2xl font-bold">Ai Professor</span>
                 </aside>
                 <nav>
                     <h6 className="footer-title">Services</h6>

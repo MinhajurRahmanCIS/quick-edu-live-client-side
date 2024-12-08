@@ -14,7 +14,7 @@ const AiQuizInfo = () => {
                 <div>
                     <h1 className="sm:text-2xl md:text-xl lg:text-2xl xl:text-5xl font-bold">AI Quiz Generator: Elevate Your Learning Experience</h1>
                     <p className="md:text-xs lg:text-sm xl:text-xl mt-4 text-justify">
-                    Introducing the AI Quiz Generator, an innovative tool powered by the Gemini-1.5-Flash API. With Quick Edu Live, you can effortlessly create engaging quizzes tailored to your educational needs. Our advanced AI technology ensures the generation of diverse, challenging and informative questions to enhance learning and assessment. Whether for classrooms, training programs, or self-study, our AI Quiz Generator provides a seamless and efficient way to test knowledge and track progress. Additionally, it supports printing questions for both online and offline exams, offering maximum flexibility in how you conduct your assessments.
+                    Introducing the AI Quiz Generator, an innovative tool powered by the Gemini-1.5-Flash API. With Ai Professor, you can effortlessly create engaging quizzes tailored to your educational needs. Our advanced AI technology ensures the generation of diverse, challenging and informative questions to enhance learning and assessment. Whether for classrooms, training programs, or self-study, our AI Quiz Generator provides a seamless and efficient way to test knowledge and track progress. Additionally, it supports printing questions for both online and offline exams, offering maximum flexibility in how you conduct your assessments.
                     </p>
                 </div>
             </div>

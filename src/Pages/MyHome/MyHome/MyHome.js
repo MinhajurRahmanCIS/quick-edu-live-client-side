@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import SuggestionClasses from '../SuggestionClasses/SuggestionClasses';
+import AIProfessorChatbot from '../../AIProfessorChatbot/AIProfessorChatbot';
 
 const MyHome = () => {
     const { user } = useContext(AuthContext);
@@ -103,7 +104,7 @@ const MyHome = () => {
                     </div>
                 </div>
             }
-
+            {/* <AIProfessorChatbot/> */}
         </div>
     );
 };
