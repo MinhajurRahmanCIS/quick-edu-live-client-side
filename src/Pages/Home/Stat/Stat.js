@@ -9,7 +9,7 @@ const Stat = () => {
     const { data: userStat = [], isLoading } = useQuery({
         queryKey: ["User Stat"],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/users`, {
+            const res = await fetch(`http://localhost:5000/users`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

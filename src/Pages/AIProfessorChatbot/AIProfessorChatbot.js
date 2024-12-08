@@ -18,7 +18,7 @@ const AIProfessorChatbot = () => {
         const fetchPreviousConversations = async () => {
             if (user?.email) {
                 try {
-                    const response = await fetch(`https://quick-edu-live-server-side.onrender.com//chatbot/conversations/${user.email}`);
+                    const response = await fetch(`http://localhost:5000//chatbot/conversations/${user.email}`);
                     const conversations = await response.text();
                     const parsedConversations = JSON.parse(conversations);
                     
@@ -48,7 +48,7 @@ const AIProfessorChatbot = () => {
         setMessages(prev => [...prev, userMessage]);
         
         try {
-            const response = await fetch('https://quick-edu-live-server-side.onrender.com/chatbot/email', {
+            const response = await fetch('http://localhost:5000/chatbot/email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

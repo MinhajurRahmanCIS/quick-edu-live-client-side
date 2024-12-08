@@ -14,7 +14,7 @@ const AssignmentSubmission = ({ assignment, hasSubmitted }) => {
 
     const { data: assignmentUpdate = [], isLoading: assignmentUpdateLoading, refetch } = useQuery({
         queryKey: ["assignmentUpdate", assignment.userEmail],
-        queryFn: () => fetch(`https://quick-edu-live-server-side.onrender.com/checkSubmission?email=${assignment.userEmail}&assignment=true`, {
+        queryFn: () => fetch(`http://localhost:5000/checkSubmission?email=${assignment.userEmail}&assignment=true`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
             }
@@ -48,7 +48,7 @@ const AssignmentSubmission = ({ assignment, hasSubmitted }) => {
                         fileName: file.name
                     };
 
-                    return fetch("https://quick-edu-live-server-side.onrender.com/submission", {
+                    return fetch("http://localhost:5000/submission", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -94,7 +94,7 @@ const AssignmentSubmission = ({ assignment, hasSubmitted }) => {
             confirmButtonText: "Delete"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://quick-edu-live-server-side.onrender.com/submission/${id}`, {
+                fetch(`http://localhost:5000/submission/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem("quickEdu-token")}`

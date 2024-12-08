@@ -13,7 +13,7 @@ const CreateAnnouncement = ({ user, classData, refetch }) => {
             classId: classData._id,
             date: format(currentDate, "d/MM/yyyy HH:mm:ss a"),
         };
-        fetch("https://quick-edu-live-server-side.onrender.com/announcements", {
+        fetch("http://localhost:5000/announcements", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

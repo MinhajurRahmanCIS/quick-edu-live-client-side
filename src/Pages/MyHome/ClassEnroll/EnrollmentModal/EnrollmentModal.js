@@ -6,7 +6,7 @@ const EnrollmentModal = ({ modal, setModal, refetch }) => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const handelEnrollClass = (data, event) => {
         data.studentEmail = modal;
-        fetch("https://quick-edu-live-server-side.onrender.com/enrollments", {
+        fetch("http://localhost:5000/enrollments", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

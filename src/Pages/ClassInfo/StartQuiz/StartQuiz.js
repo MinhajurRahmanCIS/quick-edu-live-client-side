@@ -20,7 +20,7 @@ const StartQuiz = () => {
     const { data: startQuiz = {}, isLoading } = useQuery({
         queryKey: ["startQuiz", examId],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/classwork/${examId}`, {
+            const res = await fetch(`http://localhost:5000/classwork/${examId}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }
@@ -71,7 +71,7 @@ const StartQuiz = () => {
             correctAnswer: correctAnswers[index].slice(0,2),
         }));
 
-        fetch("https://quick-edu-live-server-side.onrender.com/submission", {
+        fetch("http://localhost:5000/submission", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

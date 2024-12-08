@@ -22,7 +22,7 @@ const Profile = () => {
     // console.log(userInfo.data);
 
     const handelUpdateProfile = data => {
-        fetch(`https://quick-edu-live-server-side.onrender.com/users/${_id}`, {
+        fetch(`http://localhost:5000/users/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -39,7 +39,7 @@ const Profile = () => {
     };
 
     const handleAddSkill = () => {
-        fetch(`https://quick-edu-live-server-side.onrender.com/usersSkill/${_id}`, {
+        fetch(`http://localhost:5000/usersSkill/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",

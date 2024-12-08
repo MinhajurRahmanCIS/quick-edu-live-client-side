@@ -37,7 +37,7 @@ const Checkout = () => {
             amount: price,
         }
 
-        fetch(`https://quick-edu-live-server-side.onrender.com/payment`, {
+        fetch(`http://localhost:5000/payment`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",

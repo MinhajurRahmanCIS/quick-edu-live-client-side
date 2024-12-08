@@ -7,7 +7,6 @@ const ClassLayout = () => {
         <div className="max-w-[1440px] mx-auto">
             <ClassMenu></ClassMenu>
             <Outlet></Outlet>
-            <AIProfessorChatbot/>
         </div>
     );
 };

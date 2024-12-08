@@ -18,7 +18,7 @@ const ClassEnrollCard = ({c, refetch}) => {
             confirmButtonText: "Delete Enroll Class"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://quick-edu-live-server-side.onrender.com/enrollments/${id}`, {
+                fetch(`http://localhost:5000/enrollments/${id}`, {
                 method: "DELETE",
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`

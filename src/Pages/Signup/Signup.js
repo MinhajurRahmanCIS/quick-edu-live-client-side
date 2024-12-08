@@ -84,7 +84,7 @@ const Signup = () => {
     };
 
     const saveUser = user => {
-        fetch('https://quick-edu-live-server-side.onrender.com/users', {
+        fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -18,7 +18,7 @@ const ReportAProblem = () => {
             title,
             message
         }
-        fetch("https://quick-edu-live-server-side.onrender.com/report", {
+        fetch("http://localhost:5000/report", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

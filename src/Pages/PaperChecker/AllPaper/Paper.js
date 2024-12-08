@@ -17,7 +17,7 @@ const Paper = ({ ap, refetch, i }) => {
             confirmButtonText: "Delete Paper"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://quick-edu-live-server-side.onrender.com/check/${id}`, {
+                fetch(`http://localhost:5000/check/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem("quickEdu-token")}`

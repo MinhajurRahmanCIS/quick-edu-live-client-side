@@ -22,7 +22,7 @@ const EditProfile = () => {
         };
         updateUser(userInfo)
             .then(() => {
-                fetch(`https://quick-edu-live-server-side.onrender.com/users/${_id}`, {
+                fetch(`http://localhost:5000/users/${_id}`, {
                     method: "PUT",
                     headers: {
                         "content-type": "application/json",

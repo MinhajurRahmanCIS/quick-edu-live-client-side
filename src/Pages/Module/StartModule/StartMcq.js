@@ -13,7 +13,7 @@ const StartMcq = ({ mcq, id, index, email, setStartMCQ, refetch, chapterLength }
             return { userAnswer, isCorrect };
         });
 
-        const res = await fetch(`https://quick-edu-live-server-side.onrender.com/moduleProgress/${id}/${email}/${index}`, {
+        const res = await fetch(`http://localhost:5000/moduleProgress/${id}/${email}/${index}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json"
@@ -28,7 +28,7 @@ const StartMcq = ({ mcq, id, index, email, setStartMCQ, refetch, chapterLength }
 
             if (chapterLength === index + 1) {
                 navigate('/myhome/certificate');
-                const res = await fetch(`https://quick-edu-live-server-side.onrender.com/moduleEnd/${id}/${email}`, {
+                const res = await fetch(`http://localhost:5000/moduleEnd/${id}/${email}`, {
                     method: "PATCH",
                     headers: {
                         "content-type": "application/json"

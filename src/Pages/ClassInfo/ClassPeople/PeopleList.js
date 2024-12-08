@@ -15,7 +15,7 @@ const PeopleList = ({ people, i, refetch, isTeacher }) => {
             confirmButtonText: "Remove Student"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://quick-edu-live-server-side.onrender.com/enrollmentPeople/${email}`, {
+                fetch(`http://localhost:5000/enrollmentPeople/${email}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem("quickEdu-token")}`

@@ -7,7 +7,7 @@ const Reviews = () => {
     const { data: reviews = [], isLoading: reviewIsLoading } = useQuery({
         queryKey: ["reviews"],
         queryFn: async () => {
-            const res = await fetch('https://quick-edu-live-server-side.onrender.com/feedback', {
+            const res = await fetch('http://localhost:5000/feedback', {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

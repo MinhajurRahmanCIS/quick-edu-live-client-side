@@ -4,7 +4,7 @@ const useLoadSubmission = id => {
     const { data: viewSubmissions = [], isLoading: viewSubmissionsLoading } = useQuery({
         queryKey: ["viewSubmissions", id],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/viewSubmission/${id}`, {
+            const res = await fetch(`http://localhost:5000/viewSubmission/${id}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

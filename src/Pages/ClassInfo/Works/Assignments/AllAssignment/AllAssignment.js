@@ -21,7 +21,7 @@ const AllAssignment = ({ assignment, i, refetch, isTeacher, assignmentSubmission
             confirmButtonText: "Delete Assignment"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://quick-edu-live-server-side.onrender.com/classwork/${id}`, {
+                fetch(`http://localhost:5000/classwork/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem("quickEdu-token")}`

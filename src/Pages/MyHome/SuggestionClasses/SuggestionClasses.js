@@ -24,7 +24,7 @@ const SuggestionClasses = ({ suggest, suggestionsRefetch }) => {
             confirmButtonText: "Enroll!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch("https://quick-edu-live-server-side.onrender.com/enrollments", {
+                fetch("http://localhost:5000/enrollments", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",

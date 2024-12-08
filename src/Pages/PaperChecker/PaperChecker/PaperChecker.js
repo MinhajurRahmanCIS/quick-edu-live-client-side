@@ -75,7 +75,7 @@ const PaperChecker = () => {
                             questionImg,
                             answerImg
                         };
-                        fetch("https://quick-edu-live-server-side.onrender.com/check", {
+                        fetch("http://localhost:5000/check", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json",

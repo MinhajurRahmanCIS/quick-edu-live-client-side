@@ -5,7 +5,7 @@ const useToken = email => {
     useEffect(() => {
         if (email) {
             // console.log(email)
-            fetch(`https://quick-edu-live-server-side.onrender.com/jwt?email=${email}`,{
+            fetch(`http://localhost:5000/jwt?email=${email}`,{
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }
