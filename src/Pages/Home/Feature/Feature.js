@@ -4,7 +4,8 @@ import { SiGooglebard, SiGoogleclassroom } from 'react-icons/si';
 import { RiPresentationFill } from "react-icons/ri";
 import { GiArtificialHive, GiVideoConference } from "react-icons/gi";
 import { RiLiveLine } from "react-icons/ri";
-import { GrDocumentPdf } from "react-icons/gr";
+import { PiChats } from "react-icons/pi";
+
 const Feature = () => {
     return (
         <div className="bg-base-200 p-10 mt-10">
@@ -50,6 +51,12 @@ const Feature = () => {
                 <div className="card-body flex flex-col items-center justify-center text-center">
                     <h2 className="text-8xl flex"><SiGooglebard className="text-xs text-blue-400" /> <GiArtificialHive   /> </h2>
                     <p className="text-xl font-semibold ms-1">AI Course Creation with Teacher Narration</p>
+                </div>
+            </div>
+            <div className="card bg-base-100 shadow-xl border py-20 hover:bg-slate-200">
+                <div className="card-body flex flex-col items-center justify-center text-center">
+                    <h2 className="text-8xl flex"><SiGooglebard className="text-xs text-blue-400" /> <PiChats />  </h2>
+                    <p className="text-xl font-semibold ms-1">Ai Professor ChatBot</p>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Loading from '../../Shared/Loading/Loading';
 import useLoadUser from '../../../hooks/useLoadUser';
@@ -11,9 +11,10 @@ import { Helmet } from 'react-helmet-async';
 
 const StartQuiz = () => {
     const { examId } = useParams();
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, getValues } = useForm();
     const { user } = useContext(AuthContext);
     const [timeLeft, setTimeLeft] = useState(null);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
     const navigate = useNavigate();
     const { userInfo, userIsLoading } = useLoadUser(user);
 
@@ -30,6 +31,47 @@ const StartQuiz = () => {
         }
     });
 
+    const submitQuiz = useCallback(() => {
+        if (hasSubmitted || !startQuiz.data) return;
+
+        setHasSubmitted(true);
+
+        const formData = getValues();
+        const correctAnswers = startQuiz.data.questions.map((q) => q.correctAnswer);
+        const userAnswers = startQuiz.data.questions.map((q, index) => formData[`question-${index + 1}`]);
+        const results = startQuiz.data.questions.map((q, index) => ({
+            questionId: q._id,
+            isCorrect: userAnswers[index]?.slice(0,2) === correctAnswers[index].slice(0,2),
+            userAnswer: userAnswers[index],
+            correctAnswer: correctAnswers[index].slice(0,2),
+        }));
+
+        fetch("http://localhost:5000/submission", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
+            },
+            body: JSON.stringify({ 
+                classId: startQuiz.data.classId, 
+                quizId: examId, 
+                userEmail: userInfo?.data?.email, 
+                results 
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            toast.success("Quiz Submitted");
+            navigate(`/myhome/classinfo/${startQuiz.data.classId}`);
+        })
+        .catch(error => {
+            console.error("Submission error:", error);
+            toast.error("Failed to submit quiz");
+            setHasSubmitted(false);
+        });
+    }, [examId, hasSubmitted, startQuiz, userInfo, navigate]);
+
     useEffect(() => {
         if (startQuiz.data?.examDuration) {
             const durationInMinutes = parseInt(startQuiz.data.examDuration.slice(0, 2));
@@ -37,9 +79,32 @@ const StartQuiz = () => {
         }
     }, [startQuiz]);
 
+    // Handle visibility change and window blur events
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                submitQuiz();
+            }
+        };
+
+        const handleWindowBlur = () => {
+            submitQuiz();
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        window.addEventListener('blur', handleWindowBlur);
+
+        // Cleanup event listeners
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            window.removeEventListener('blur', handleWindowBlur);
+        };
+    }, [submitQuiz]);
+
+    // Existing time countdown logic
     useEffect(() => {
         if (timeLeft === 0) {
-            handleSubmit(handleSubmitAnswer)();
+            submitQuiz();
         } else if (timeLeft === 300) {
             toast("Only 5 minutes remaining!", {
                 icon: "⚠️",
@@ -53,39 +118,11 @@ const StartQuiz = () => {
         }, 1000);
 
         return () => clearInterval(intervalId);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [handleSubmit, timeLeft]);
+    }, [submitQuiz, timeLeft]);
 
     if (isLoading || userIsLoading) {
         return <Loading />;
     }
-
-    const handleSubmitAnswer = (data) => {
-        const correctAnswers = startQuiz.data.questions.map((q) => q.correctAnswer);
-        const userAnswers = startQuiz.data.questions.map((q, index) => data[`question-${index + 1}`]);
-        const results = startQuiz.data.questions.map((q, index) => ({
-            questionId: q._id,
-            isCorrect: userAnswers[index].slice(0,2) === correctAnswers[index].slice(0,2),
-            userAnswer: userAnswers[index],
-            correctAnswer: correctAnswers[index].slice(0,2),
-        }));
-
-        fetch("http://localhost:5000/submission", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
-            },
-            body: JSON.stringify({ classId, quizId : examId, userEmail: userInfo?.data?.email, results })
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                toast.success("Quiz Submitted");
-                navigate(`/myhome/classinfo/${startQuiz.data.classId}`);
-            });
-    };
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -93,7 +130,7 @@ const StartQuiz = () => {
         return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     };
 
-    const { classId, topic, date, examDuration, questions } = startQuiz?.data;
+    const { classId, topic, date, examDuration, questions } = startQuiz?.data || {};
 
     return (
         <div className="max-w-[1440px] mx-auto p-1">
@@ -117,9 +154,9 @@ const StartQuiz = () => {
                     <span className="border p-2 bg-slate-400">Time Left: {formatTime(timeLeft)}</span>
                 </div>
 
-                <form onSubmit={handleSubmit(handleSubmitAnswer)}>
+                <form onSubmit={handleSubmit(submitQuiz)}>
                     {
-                        questions.map((q, i) =>
+                        questions?.map((q, i) =>
                             <Questions
                                 key={q._id}
                                 i={i + 1}

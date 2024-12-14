@@ -1,3 +1,4 @@
+// Frontend: src/components/AIProfessorChatbot.js
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider';
 
@@ -5,6 +6,7 @@ const AIProfessorChatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const { user } = useContext(AuthContext);
     const messagesEndRef = useRef(null);
 
@@ -13,22 +15,35 @@ const AIProfessorChatbot = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
-    // Fetch previous conversations when component mounts
+    // Fetch previous conversations when component mounts or user changes
     useEffect(() => {
         const fetchPreviousConversations = async () => {
             if (user?.email) {
                 try {
-                    const response = await fetch(`http://localhost:5000//chatbot/conversations/${user.email}`);
-                    const conversations = await response.text();
-                    const parsedConversations = JSON.parse(conversations);
+                    const response = await fetch(`http://localhost:5000/chatbot/conversations/${user.email}`);
+                    
+                    // Check if response is ok
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch conversations');
+                    }
+                    
+                    const conversations = await response.json();
+                    
+                    // Ensure conversations is an array
+                    const validConversations = Array.isArray(conversations) ? conversations : [];
                     
                     // Transform conversations to message format
-                    const formattedMessages = parsedConversations.flatMap(conv => [
-                        { text: conv.query, sender: 'user' },
-                        { text: conv.response, sender: 'ai' }
+                    const formattedMessages = validConversations.flatMap(conv => [
+                        { text: conv.query, sender: 'user', timestamp: conv.timestamp },
+                        { text: conv.response, sender: 'ai', timestamp: conv.timestamp }
                     ]);
 
-                    setMessages(formattedMessages);
+                    // Sort messages by timestamp to ensure correct order
+                    const sortedMessages = formattedMessages.sort((a, b) => 
+                        new Date(a.timestamp) - new Date(b.timestamp)
+                    );
+
+                    setMessages(sortedMessages);
                     scrollToBottom();
                 } catch (error) {
                     console.error('Error fetching previous conversations:', error);
@@ -44,8 +59,15 @@ const AIProfessorChatbot = () => {
         if (!inputMessage.trim()) return;
     
         // Add user message to chat
-        const userMessage = { text: inputMessage, sender: 'user' };
+        const userMessage = { 
+            text: inputMessage, 
+            sender: 'user', 
+            timestamp: new Date().toISOString() 
+        };
         setMessages(prev => [...prev, userMessage]);
+        
+        // Set loading state
+        setIsLoading(true);
         
         try {
             const response = await fetch('http://localhost:5000/chatbot/email', {
@@ -62,14 +84,21 @@ const AIProfessorChatbot = () => {
             const aiResponse = await response.text();
     
             // Add AI response to chat
-            const aiMessage = { text: aiResponse, sender: 'ai' };
+            const aiMessage = { 
+                text: aiResponse, 
+                sender: 'ai', 
+                timestamp: new Date().toISOString() 
+            };
             setMessages(prev => [...prev, aiMessage]);
     
-            // This line clears the input text
+            // Clear input and reset loading state
             setInputMessage('');
             scrollToBottom();
         } catch (error) {
             console.error('Chatbot send error:', error);
+        } finally {
+            // Ensure loading state is turned off
+            setIsLoading(false);
         }
     };
 
@@ -103,12 +132,18 @@ const AIProfessorChatbot = () => {
                             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                             placeholder="Ask your AI Professor..."
                             className="flex-grow mr-2 p-2 border rounded"
+                            disabled={isLoading}
                         />
                         <button 
                             onClick={handleSendMessage}
-                            className="bg-blue-500 text-white p-2 rounded"
+                            className="bg-blue-500 text-white p-2 rounded flex items-center"
+                            disabled={isLoading}
                         >
-                            Send
+                            {isLoading ? (
+                                <span className="loading loading-spinner text-white"></span>
+                            ) : (
+                                'Send'
+                            )}
                         </button>
                     </div>
                 </div>
