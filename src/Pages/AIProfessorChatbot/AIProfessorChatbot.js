@@ -1,4 +1,3 @@
-// Frontend: src/components/AIProfessorChatbot.js
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider';
 
@@ -15,89 +14,72 @@ const AIProfessorChatbot = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
+    // Scroll to bottom whenever messages change
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+    // Scroll to bottom when the chatbox is opened
+    useEffect(() => {
+        if (isOpen) {
+            scrollToBottom();
+        }
+    }, [isOpen]);
+
     // Fetch previous conversations when component mounts or user changes
     useEffect(() => {
         const fetchPreviousConversations = async () => {
             if (user?.email) {
                 try {
                     const response = await fetch(`http://localhost:5000/chatbot/conversations/${user.email}`);
-                    
-                    // Check if response is ok
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch conversations');
-                    }
-                    
+                    if (!response.ok) throw new Error('Failed to fetch conversations');
                     const conversations = await response.json();
-                    
-                    // Ensure conversations is an array
                     const validConversations = Array.isArray(conversations) ? conversations : [];
-                    
-                    // Transform conversations to message format
                     const formattedMessages = validConversations.flatMap(conv => [
                         { text: conv.query, sender: 'user', timestamp: conv.timestamp },
                         { text: conv.response, sender: 'ai', timestamp: conv.timestamp }
                     ]);
-
-                    // Sort messages by timestamp to ensure correct order
                     const sortedMessages = formattedMessages.sort((a, b) => 
                         new Date(a.timestamp) - new Date(b.timestamp)
                     );
-
                     setMessages(sortedMessages);
-                    scrollToBottom();
                 } catch (error) {
                     console.error('Error fetching previous conversations:', error);
                 }
             }
         };
-
         fetchPreviousConversations();
     }, [user]);
 
     // Handle sending a new message
     const handleSendMessage = async () => {
         if (!inputMessage.trim()) return;
-    
-        // Add user message to chat
+
         const userMessage = { 
             text: inputMessage, 
             sender: 'user', 
             timestamp: new Date().toISOString() 
         };
         setMessages(prev => [...prev, userMessage]);
-        
-        // Set loading state
         setIsLoading(true);
-        
+
         try {
             const response = await fetch('http://localhost:5000/chatbot/email', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: user.email,
-                    query: inputMessage
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: user.email, query: inputMessage })
             });
-    
             const aiResponse = await response.text();
-    
-            // Add AI response to chat
             const aiMessage = { 
                 text: aiResponse, 
                 sender: 'ai', 
                 timestamp: new Date().toISOString() 
             };
             setMessages(prev => [...prev, aiMessage]);
-    
-            // Clear input and reset loading state
             setInputMessage('');
-            scrollToBottom();
         } catch (error) {
             console.error('Chatbot send error:', error);
         } finally {
-            // Ensure loading state is turned off
             setIsLoading(false);
         }
     };
@@ -105,7 +87,7 @@ const AIProfessorChatbot = () => {
     return (
         <div className="fixed bottom-4 right-4 z-50">
             {isOpen && (
-                <div className="w-80 h-[500px] bg-white border rounded-lg shadow-lg flex flex-col">
+                <div className="w-[500px] h-[500px] bg-white border rounded-lg shadow-lg flex flex-col">
                     <div className="p-4 bg-gray-100 font-bold rounded-t-lg">
                         AI Professor
                     </div>
