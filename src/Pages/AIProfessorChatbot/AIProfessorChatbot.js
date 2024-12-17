@@ -87,7 +87,7 @@ const AIProfessorChatbot = () => {
     return (
         <div className="fixed bottom-4 right-4 z-50">
             {isOpen && (
-                <div className="w-[500px] h-[500px] bg-white border rounded-lg shadow-lg flex flex-col">
+                <div className="w-72 md:w-[500px] h-[500px] bg-white border rounded-lg shadow-lg flex flex-col">
                     <div className="p-4 bg-gray-100 font-bold rounded-t-lg">
                         AI Professor
                     </div>
