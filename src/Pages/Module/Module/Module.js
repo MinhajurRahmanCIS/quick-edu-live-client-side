@@ -14,7 +14,7 @@ const Module = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/module', {
+      const response = await fetch('https://quick-edu-live-server-side.onrender.com/module', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ ...data, email: user.email }),

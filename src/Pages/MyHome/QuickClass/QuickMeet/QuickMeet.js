@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import QHome from './QHome';
 import Room from './Room';
 
-const socket = io('https://meet-p57l.onrender.com');
+const socket = io('https://quick-edu-live-server-side.onrender.com');
 
 function QuickMeet() {
   return (

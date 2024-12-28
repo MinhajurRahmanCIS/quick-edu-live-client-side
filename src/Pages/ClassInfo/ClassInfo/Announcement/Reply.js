@@ -15,7 +15,7 @@ const Reply = ({ c, isTeacher, refetch }) => {
             confirmButtonText: "Delete Comment"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/announcements/${id}`, {
+                fetch(`https://quick-edu-live-server-side.onrender.com/announcements/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
@@ -49,7 +49,7 @@ const Reply = ({ c, isTeacher, refetch }) => {
             <div className="flex items-center gap-3">
                 <div className="avatar">
                     <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                        <img src={photoURL} alt="" />
+                        <img loading="lazy" src={photoURL} alt="" />
                     </div>
                 </div>
                 {userName}

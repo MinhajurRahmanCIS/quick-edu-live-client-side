@@ -12,7 +12,7 @@ const ErrorPage = () => {
                 </title>
             </Helmet>
             {/* <h1 className=" text-7xl font-extrabold mb-8">Error {status || 404}</h1> */}
-            <img src={err} alt=""></img>
+            <img loading="lazy" src={err} alt=""></img>
             <p className="lg:text-3xl my-5">{error?.message}</p>
             <Link className="btn bg-red-500 text-white" to={-1}>Go Back</Link>
         </div>

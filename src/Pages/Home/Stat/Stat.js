@@ -9,7 +9,7 @@ const Stat = () => {
     const { data: userStat = [], isLoading } = useQuery({
         queryKey: ["User Stat"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/users`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }
@@ -22,8 +22,8 @@ const Stat = () => {
         return <Loading></Loading>
     };
 
-    const teachers = userStat.data.filter(t => t.role === "Teacher").length;
-    const students = userStat.data.filter(t => t.role === "Student").length;
+    const teachers = userStat?.data?.filter(t => t.role === "Teacher")?.length;
+    const students = userStat?.data?.filter(t => t.role === "Student")?.length;
 
     return (
         <div className='flex justify-center p-10'>

@@ -8,7 +8,7 @@ const CreateClassInfo = () => {
                 <div>
                     <h1 className="sm:text-2xl md:text-xl lg:text-2xl xl:text-5xl font-bold">Transform Your Learning Experience</h1>
                     <p className="md:text-xs lg:text-sm xl:text-xl mt-4 text-justify">
-                    Ai Professor is not just another classroom platform. it's a revolutionary AI-powered learning environment that brings teachers and students together in a dynamic, interactive space. Whether you're a teacher looking to create engaging classes or a student eager to participate in live sessions, Ai Professor has everything you need to succeed.
+                    Quick Edu Live is not just another classroom platform. it's a revolutionary AI-powered learning environment that brings teachers and students together in a dynamic, interactive space. Whether you're a teacher looking to create engaging classes or a student eager to participate in live sessions, Quick Edu Live has everything you need to succeed.
                     </p>
                     <Link to="/signup" className="btn btn-neutral w-full sm:w-2/6 mt-2">Join Us Today</Link>
                 </div>

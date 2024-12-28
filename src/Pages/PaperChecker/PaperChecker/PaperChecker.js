@@ -75,7 +75,7 @@ const PaperChecker = () => {
                             questionImg,
                             answerImg
                         };
-                        fetch("http://localhost:5000/check", {
+                        fetch("https://quick-edu-live-server-side.onrender.com/check", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json",
@@ -103,7 +103,7 @@ const PaperChecker = () => {
             {
                 resultLoading ?
                     <div className="flex justify-center items-center h-full w-full">
-                        <img src={checkingIcon} alt="" />
+                        <img loading="lazy" src={checkingIcon} alt="" />
                     </div>
                     :
                     <>
@@ -141,7 +141,7 @@ const PaperChecker = () => {
                                     </label>
                                     {questionPreview && (
                                         <div className="mt-4">
-                                            <img src={questionPreview} alt="Uploaded" className="w-full h-[350px]" />
+                                            <img loading="lazy" src={questionPreview} alt="Uploaded" className="w-full h-[350px]" />
                                         </div>
                                     )}
                                     <input
@@ -160,7 +160,7 @@ const PaperChecker = () => {
                                     </label>
                                     {answerPreview && (
                                         <div className="mt-4">
-                                            <img src={answerPreview} alt="Uploaded" className="w-full h-[350px]" />
+                                            <img loading="lazy" src={answerPreview} alt="Uploaded" className="w-full h-[350px]" />
                                         </div>
                                     )}
                                     <input

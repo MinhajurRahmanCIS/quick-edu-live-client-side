@@ -7,7 +7,7 @@ const Replies = ({ modal, isTeacher }) => {
     const { data: comments = [], isLoading, refetch } = useQuery({
         queryKey: ["comments", modal?._id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/comments?announcementId=${modal._id}&sorted=${-1}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/comments?announcementId=${modal._id}&sorted=${-1}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

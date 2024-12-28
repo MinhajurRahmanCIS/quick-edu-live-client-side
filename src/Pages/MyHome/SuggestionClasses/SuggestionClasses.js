@@ -24,7 +24,7 @@ const SuggestionClasses = ({ suggest, suggestionsRefetch }) => {
             confirmButtonText: "Enroll!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch("http://localhost:5000/enrollments", {
+                fetch("https://quick-edu-live-server-side.onrender.com/enrollments", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
@@ -59,7 +59,7 @@ const SuggestionClasses = ({ suggest, suggestionsRefetch }) => {
     return (
         <div className="card bg-base-100 shadow-xl my-5">
             <figure>
-                <img
+                <img loading="lazy"
                     src={photoURL}
                     alt={name} />
             </figure>

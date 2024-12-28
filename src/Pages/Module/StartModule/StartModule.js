@@ -126,7 +126,7 @@ const StartModule = () => {
                     <div className="absolute inset-0 rounded-full bg-gray-400 animate-pulse"></div>
 
                     {/* Static Image */}
-                    <img
+                    <img loading="lazy"
                         loading="lazy"
                         src={lipsync}
                         alt="lipsync"

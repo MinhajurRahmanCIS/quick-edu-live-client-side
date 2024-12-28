@@ -53,7 +53,7 @@ const Certificate = () => {
                         </div>
                         <div className="text-center">
                             <p className="text-sm text-gray-500">Authorized by:</p>
-                            <p className="font-medium text-gray-700">Ai Professor</p>
+                            <p className="font-medium text-gray-700">Quick Edu Live</p>
                         </div>
                     </div>
                 </div>

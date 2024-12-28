@@ -37,7 +37,7 @@ const Checkout = () => {
             amount: price,
         }
 
-        fetch(`http://localhost:5000/payment`, {
+        fetch(`https://quick-edu-live-server-side.onrender.com/payment`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -62,7 +62,7 @@ const Checkout = () => {
             </Helmet>
             <div className="card lg:card-side bg-base-100 border rounded-none shadow-xl">
                 <figure className="border-e">
-                    <img className="rounded-none w-[400px]" src={paper} alt="Album" />
+                    <img loading="lazy" className="rounded-none w-[400px]" src={paper} alt="Album" />
                 </figure>
                 <div className="card-body">
                     <h1 className="card-title">Unlock The Future </h1>

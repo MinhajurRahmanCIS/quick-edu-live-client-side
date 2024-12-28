@@ -24,45 +24,59 @@ const Signup = () => {
         // Create New User Function
         createUser(data.email, data.password)
             .then(result => {
-                // const loggedUser = result.user;
-                const image = data.image[0];
-                const formData = new FormData();
-                formData.append('image', image);
-                fetch(`https://api.imgbb.com/1/upload?key=${imageHostKey}`,
-                    {
+                const image = data.image?.[0];
+                const userInfo = {
+                    displayName: data.name,
+                    photoURL: "", // Default empty photoURL
+                };
+
+                const handleUpdateAndSaveUser = (photoURL) => {
+                    userInfo.photoURL = photoURL || "";
+
+                    updateUser(userInfo)
+                        .then(() => {
+                            const user = {
+                                name: data.name,
+                                email: data.email,
+                                image: photoURL || "",
+                                role: data.role,
+                                account: "",
+                                institution: "",
+                                country: "",
+                                dob: "",
+                            };
+                            saveUser(user);
+                            event.target.reset();
+                        })
+                        .catch(error => {
+                            setSignupError(error.message);
+                        });
+                };
+
+                if (image) {
+                    const formData = new FormData();
+                    formData.append('image', image);
+
+                    fetch(`https://api.imgbb.com/1/upload?key=${imageHostKey}`, {
                         method: 'POST',
                         body: formData
                     })
-                    .then(res => res.json())
-                    .then(imageData => {
-                        const userInfo = {
-                            displayName: data.name,
-                            photoURL: imageData.data.url
-                        };
-                        updateUser(userInfo)
-                            .then(() => {
-                                const user = {
-                                    name: data.name,
-                                    email: data.email,
-                                    image: imageData.data.url,
-                                    role: data.role,
-                                    account: "",
-                                    institution: data.institution,
-                                    country: data.country,
-                                    dob: data.dob
-                                };
-                                saveUser(user);
-                                event.target.reset();
-                            })
-                            .catch(error => {
-                                setSignupError(error.message);
-                            })
-                    })
+                        .then(res => res.json())
+                        .then(imageData => {
+                            handleUpdateAndSaveUser(imageData.data.url);
+                        })
+                        .catch(error => {
+                            setSignupError("Image upload failed. Please try again.");
+                        });
+                } else {
+                    handleUpdateAndSaveUser();
+                }
             })
             .catch(error => {
                 setSignupError(error.message);
-            })
+            });
     };
+
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
@@ -84,7 +98,7 @@ const Signup = () => {
     };
 
     const saveUser = user => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://quick-edu-live-server-side.onrender.com/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -110,14 +124,38 @@ const Signup = () => {
         <div className="hero my-10">
             <Helmet>
                 <title>
-                  Sign Up
+                    Sign Up
                 </title>
             </Helmet>
             <div className="hero-content grid md:grid-cols-2 gap-20">
+                <div>
+                    <img loading="lazy" src={signupImage} alt="" />
+                </div>
                 <div className="card shadow-2xl border">
                     <form onSubmit={handleSubmit(handelSignup)} className="card-body">
                         <h1 className="text-2xl text-center font-semibold">Sign Up</h1>
                         <hr />
+
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text font-semibold">Role</span>
+                            </label>
+                            <div className='flex items-center'>
+                                <input {...register("role",
+                                    {
+                                        required: { value: true, message: "Role is Required" }
+                                    })} type="radio" name="role" value={"Teacher"} className="radio radio-neutral" />
+                                <span className='mx-3'>Teacher</span>
+                                <input {...register("role",
+                                    {
+                                        required: { value: true, message: "Role is Required" }
+                                    })} type="radio" name="role" value={"Student"} className="radio radio-info" />
+                                <span className='mx-3'>Student</span>
+                            </div>
+                            <div className="label">
+                                {errors.role && <p className="text-red-600">{errors.role.message}</p>}
+                            </div>
+                        </div>
 
                         <div className="form-control">
                             <label className="label">
@@ -133,7 +171,7 @@ const Signup = () => {
                             </div>
                         </div>
 
-                        <div className="form-control">
+                        {/* <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Institution</span>
                             </label>
@@ -173,28 +211,7 @@ const Signup = () => {
                             <div className="label">
                                 {errors.dob && <p className="text-red-600">{errors.dob.message}</p>}
                             </div>
-                        </div>
-
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text font-semibold">Role</span>
-                            </label>
-                            <div className='flex items-center'>
-                                <input {...register("role",
-                                    {
-                                        required: { value: true, message: "Role is Required" }
-                                    })} type="radio" name="role" value={"Teacher"} className="radio radio-neutral" />
-                                <span className='mx-3'>Teacher</span>
-                                <input {...register("role",
-                                    {
-                                        required: { value: true, message: "Role is Required" }
-                                    })} type="radio" name="role" value={"Student"} className="radio radio-info" />
-                                <span className='mx-3'>Student</span>
-                            </div>
-                            <div className="label">
-                                {errors.role && <p className="text-red-600">{errors.role.message}</p>}
-                            </div>
-                        </div>
+                        </div> */}
 
                         <div className="form-control">
                             <label className="label">
@@ -254,13 +271,13 @@ const Signup = () => {
                                 <span className="label-text">Insert Your Photo</span>
                             </label>
                             <input {...register("image",
-                                {
-                                    required: { value: true, message: "Photo is Required" },
-                                    validate: (value) =>
-                                        ['image/png', 'image/jpeg', 'image/jpg'].includes(value[0]?.type) ||
-                                        'Invalid Photo format. Only PNG, JPEG and JPG files are allowed.',
+                                // {
+                                //     validate: (value) =>
+                                //         ['image/png', 'image/jpeg', 'image/jpg'].includes(value[0]?.type) ||
+                                //         'Invalid Photo format. Only PNG, JPEG and JPG files are allowed.',
 
-                                })}
+                                // }
+                            )}
                                 type="file" accept=".png, .jpg, .jpeg, .gif" className="file-input file-input-bordered w-full" />
                             <div className="label">
                                 {errors.image && <p className="text-red-600">{errors.image.message}</p>}
@@ -283,9 +300,6 @@ const Signup = () => {
                             <span className="">Already Have Account! <Link to="/login" className="text-info hover:text-primary">Login</Link></span>
                         </label>
                     </form>
-                </div>
-                <div>
-                    <img src={signupImage} alt="" />
                 </div>
             </div>
         </div>

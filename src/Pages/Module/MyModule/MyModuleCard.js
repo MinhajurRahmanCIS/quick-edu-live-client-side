@@ -6,7 +6,7 @@ const MyModuleCard = ({ courseModule, refetch }) => {
     const navigate = useNavigate();
 
     const handelStart = async (id) => {
-        const res = await fetch(`http://localhost:5000/specificModule/${id}/${email}`, {
+        const res = await fetch(`https://quick-edu-live-server-side.onrender.com/specificModule/${id}/${email}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json"

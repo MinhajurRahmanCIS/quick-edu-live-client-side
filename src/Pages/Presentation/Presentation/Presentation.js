@@ -19,7 +19,7 @@ const Presentation = () => {
         };
 
         try {
-            const response = await fetch(`http://localhost:5000/presentation/${user.email}`, {
+            const response = await fetch(`https://quick-edu-live-server-side.onrender.com/presentation/${user.email}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

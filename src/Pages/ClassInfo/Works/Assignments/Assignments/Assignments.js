@@ -16,7 +16,7 @@ const Assignments = () => {
     const { data: assignments = [], isLoading: assignmentsIsLoading, refetch } = useQuery({
         queryKey: ["assignments", id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/classwork?classId=${id}&assignmentNo=true`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/classwork?classId=${id}&assignmentNo=true`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }
@@ -29,7 +29,7 @@ const Assignments = () => {
     const { data: assignmentSubmissions = [], isLoading: assignmentSubmissionsLoading } = useQuery({
         queryKey: ["assignmentSubmissions", user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/checkSubmission?email=${user?.email}&assignment=true`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/checkSubmission?email=${user?.email}&assignment=true`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

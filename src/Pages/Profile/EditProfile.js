@@ -22,7 +22,7 @@ const EditProfile = () => {
         };
         updateUser(userInfo)
             .then(() => {
-                fetch(`http://localhost:5000/users/${_id}`, {
+                fetch(`https://quick-edu-live-server-side.onrender.com/users/${_id}`, {
                     method: "PUT",
                     headers: {
                         "content-type": "application/json",
@@ -54,7 +54,7 @@ const EditProfile = () => {
                 <div>
                     <div className="avatar">
                         <div className="w-40 rounded-full border border-black">
-                            <img src={image} alt="" />
+                            <img loading="lazy" src={image ? image : "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"} alt="" />
                         </div>
                     </div>
                 </div>

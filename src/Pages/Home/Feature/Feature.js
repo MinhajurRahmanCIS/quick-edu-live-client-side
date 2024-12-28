@@ -56,7 +56,7 @@ const Feature = () => {
             <div className="card bg-base-100 shadow-xl border py-20 hover:bg-slate-200">
                 <div className="card-body flex flex-col items-center justify-center text-center">
                     <h2 className="text-8xl flex"><SiGooglebard className="text-xs text-blue-400" /> <PiChats />  </h2>
-                    <p className="text-xl font-semibold ms-1">Ai Professor ChatBot</p>
+                    <p className="text-xl font-semibold ms-1">Quick Edu Live ChatBot</p>
                 </div>
             </div>
         </div>

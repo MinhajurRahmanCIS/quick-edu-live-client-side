@@ -22,7 +22,7 @@ const Profile = () => {
     // console.log(userInfo.data);
 
     const handelUpdateProfile = data => {
-        fetch(`http://localhost:5000/users/${_id}`, {
+        fetch(`https://quick-edu-live-server-side.onrender.com/users/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -39,7 +39,7 @@ const Profile = () => {
     };
 
     const handleAddSkill = () => {
-        fetch(`http://localhost:5000/usersSkill/${_id}`, {
+        fetch(`https://quick-edu-live-server-side.onrender.com/usersSkill/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -72,7 +72,7 @@ const Profile = () => {
                 <div>
                     <div className="avatar">
                         <div className="w-40 rounded-full border border-black">
-                            <img src={image} alt="" />
+                            <img loading="lazy" src={image ? image : "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"} alt="" />
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ const Profile = () => {
                         </label>
                         <input
                             type="email"
-                            placeholder="Enter Your Email Address"
+                            // placeholder="Enter Your Email Address"
                             className="input input-bordered"
                             defaultValue={email}
                             disabled />
@@ -94,7 +94,7 @@ const Profile = () => {
                         </label>
                         <input
                             type="text"
-                            placeholder="Enter Your Name"
+                            // placeholder="Enter Your Name"
                             className="input input-bordered"
                             defaultValue={name}
                             disabled
@@ -106,13 +106,14 @@ const Profile = () => {
                             <span className="label-text">Institution</span>
                         </label>
                         <input {...register("institution",
-                            {
-                                required: { value: true, message: "Institution Name is Required" }
-                            })}
+                            // {
+                            //     required: { value: true, message: "Institution Name is Required" }
+                            // }
+                        )}
                             type="text"
                             placeholder="Please Enter Your Institution Name" className="input input-bordered"
                             defaultValue={institution}
-                            disabled={institution} />
+                            disabled />
                         <div className="label">
                             {errors.institution && <p className="text-red-600">{errors.institution.message}</p>}
                         </div>
@@ -123,14 +124,15 @@ const Profile = () => {
                             <span className="label-text">Country</span>
                         </label>
                         <input {...register("country",
-                            {
-                                required: { value: true, message: "Country Name is Required" }
-                            })}
+                            // {
+                            //     required: { value: true, message: "Country Name is Required" }
+                            // }
+                        )}
                             type="text"
                             placeholder="Please Enter Your Country Name"
                             className="input input-bordered"
                             defaultValue={country}
-                            disabled={country}
+                            disabled
                         />
                         <div className="label">
                             {errors.country && <p className="text-red-600">{errors.country.message}</p>}
@@ -149,7 +151,7 @@ const Profile = () => {
                             type="date"
                             className="input input-bordered"
                             defaultValue={dob}
-                            disabled={dob} />
+                            disabled />
                         <div className="label" >
                             {errors.dob && <p className="text-red-600">{errors.dob.message}</p>}
                         </div>

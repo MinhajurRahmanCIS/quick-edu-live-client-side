@@ -10,7 +10,7 @@ const MyModule = () => {
     const { data: courseModules, isLoading: courseModulesLoading, error, refetch } = useQuery({
         queryKey: ['courseModules', user.email],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:5000/module/${user.email}`);
+            const response = await fetch(`https://quick-edu-live-server-side.onrender.com/module/${user.email}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

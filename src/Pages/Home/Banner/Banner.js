@@ -70,7 +70,7 @@ const Banner = () => {
                             id={`slide${bi._id}`}
                             className={`carousel-item relative w-full ${currentSlide === bi._id ? 'flex' : 'hidden'}`}
                         >
-                            <img src={bi.img} className="w-full" alt="banner" />
+                            <img loading="lazy" src={bi.img} className="w-full" alt="banner" />
                             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                                 <div className='hidden'>
                                 <a onClick={() => setCurrentSlide(bi.prev)} href={`#slide${bi.prev}`} className="btn btn-circle btn-neutral">❮</a>

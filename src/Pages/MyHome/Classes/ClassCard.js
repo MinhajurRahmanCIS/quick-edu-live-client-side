@@ -30,7 +30,7 @@ const ClassCard = ({ c, refetch }) => {
             confirmButtonText: "Delete Class"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/classes/${id}`, {
+                fetch(`https://quick-edu-live-server-side.onrender.com/classes/${id}`, {
                 method: "DELETE",
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
@@ -61,7 +61,7 @@ const ClassCard = ({ c, refetch }) => {
 
     return (
         <div className="card bg-base-100 shadow-md rounded-none hover:shadow-xl">
-            <Link to={`/myhome/classinfo/${_id}`}><img className="object-fill h-[250px] w-full cursor-pointer" src={photoURL} alt={name + " Class Image"} /></Link>
+            <Link to={`/myhome/classinfo/${_id}`}><img loading="lazy" className="object-fill h-[250px] w-full cursor-pointer" src={photoURL} alt={name + " Class Image"} /></Link>
             <div className="card-body">
                 <h2 className="card-title">
                     {name}

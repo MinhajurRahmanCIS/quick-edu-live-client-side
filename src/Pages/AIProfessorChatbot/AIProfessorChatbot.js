@@ -31,7 +31,7 @@ const AIProfessorChatbot = () => {
         const fetchPreviousConversations = async () => {
             if (user?.email) {
                 try {
-                    const response = await fetch(`http://localhost:5000/chatbot/conversations/${user.email}`);
+                    const response = await fetch(`https://quick-edu-live-server-side.onrender.com/chatbot/conversations/${user.email}`);
                     if (!response.ok) throw new Error('Failed to fetch conversations');
                     const conversations = await response.json();
                     const validConversations = Array.isArray(conversations) ? conversations : [];
@@ -64,7 +64,7 @@ const AIProfessorChatbot = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5000/chatbot/email', {
+            const response = await fetch('https://quick-edu-live-server-side.onrender.com/chatbot/email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: user.email, query: inputMessage })
@@ -89,7 +89,7 @@ const AIProfessorChatbot = () => {
             {isOpen && (
                 <div className="w-72 md:w-[500px] h-[500px] bg-white border rounded-lg shadow-lg flex flex-col">
                     <div className="p-4 bg-gray-100 font-bold rounded-t-lg">
-                        AI Professor
+                        Quick Edu Live
                     </div>
                     <div className="flex-grow overflow-y-auto p-4 space-y-2">
                         {messages.map((msg, index) => (
@@ -112,7 +112,7 @@ const AIProfessorChatbot = () => {
                             value={inputMessage}
                             onChange={(e) => setInputMessage(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                            placeholder="Ask your AI Professor..."
+                            placeholder="Ask your Quick Edu Live..."
                             className="flex-grow mr-2 p-2 border rounded"
                             disabled={isLoading}
                         />
@@ -135,7 +135,7 @@ const AIProfessorChatbot = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 className="bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600"
             >
-                {isOpen ? 'Close' : 'Ask Ai Professor'}
+                {isOpen ? 'Close' : 'Ask Ai bot'}
             </button>
         </div>
     );

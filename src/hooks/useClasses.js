@@ -4,7 +4,7 @@ const useClasses = user => {
     const { data: classes = [], isLoading, refetch } = useQuery({
         queryKey: ["classes", user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/classes?email=${user?.email}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/classes?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

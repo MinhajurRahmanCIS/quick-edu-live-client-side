@@ -5,7 +5,7 @@ const usePremium = email => {
     const [isPremiumLoading, setIsPremiumLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/users/premium/${email}`,{
+            fetch(`https://quick-edu-live-server-side.onrender.com/users/premium/${email}`,{
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }

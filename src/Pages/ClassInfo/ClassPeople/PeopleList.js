@@ -15,7 +15,7 @@ const PeopleList = ({ people, i, refetch, isTeacher }) => {
             confirmButtonText: "Remove Student"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/enrollmentPeople/${email}`, {
+                fetch(`https://quick-edu-live-server-side.onrender.com/enrollmentPeople/${email}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
@@ -52,7 +52,7 @@ const PeopleList = ({ people, i, refetch, isTeacher }) => {
                 <div className="flex items-center gap-3">
                     <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                            <img src={image} alt='' />
+                            <img loading="lazy" src={image} alt='' />
                         </div>
                     </div>
                     <div>

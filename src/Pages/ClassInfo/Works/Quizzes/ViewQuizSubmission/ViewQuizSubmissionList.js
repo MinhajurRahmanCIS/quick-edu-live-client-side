@@ -15,7 +15,7 @@ const ViewQuizSubmissionList = ({ submissions, i }) => {
                 <div className="flex items-center gap-3">
                     <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                            <img src={userPicture} alt='' />
+                            <img loading="lazy" src={userPicture} alt='' />
                         </div>
                     </div>
                     <div>

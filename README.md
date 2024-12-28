@@ -1,6 +1,6 @@
 # Created By Md. Minhajur Rahman
 
-# Project Name : AI Professor – Revolutionizing Education with AI
+# Project Name : Quick Edu Live – Revolutionizing Education with AI
 
 ## Teacher Account
 Email: teacher@gmail.com

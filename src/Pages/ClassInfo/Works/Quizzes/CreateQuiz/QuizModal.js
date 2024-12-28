@@ -20,7 +20,7 @@ const QuizModal = ({ modal, setModal, refetch }) => {
         setResultLoading(true);
         // console.log(data)
         data.classId = modal._id;
-        fetch("http://localhost:5000/classwork", {
+        fetch("https://quick-edu-live-server-side.onrender.com/classwork", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

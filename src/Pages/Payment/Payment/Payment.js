@@ -16,7 +16,7 @@ const Payment = () => {
     const { data: payment = [], isLoading: paymentIsLoading } = useQuery({
         queryKey: ["payment"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/payment/info/${email}/${transactionId}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/payment/info/${email}/${transactionId}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }
@@ -43,7 +43,7 @@ const Payment = () => {
             </div>
             <div ref={printRef}>
                 <h1 className="text-center text-5xl font-bold my-3">Payment History</h1>
-                <p className="text-center my-2">Ai Professor</p>
+                <p className="text-center my-2">Quick Edu Live</p>
             <div className="overflow-x-auto border">
                 <table className="table text-center">
                     <thead>

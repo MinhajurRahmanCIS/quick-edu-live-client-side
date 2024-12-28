@@ -51,10 +51,13 @@ const Login = () => {
         <div className="hero my-10">
             <Helmet>
                 <title>
-                  Login
+                    Login
                 </title>
             </Helmet>
             <div className="hero-content grid md:grid-cols-2 gap-20">
+                <div>
+                    <img loading="lazy" src={loginImage} alt="" />
+                </div>
                 <div className="card shadow-2xl border">
                     <form onSubmit={handleSubmit(handelLogin)} className="card-body">
                         <h1 className="text-2xl text-center font-semibold">Login</h1>
@@ -107,9 +110,6 @@ const Login = () => {
                         </label>
 
                     </form>
-                </div>
-                <div>
-                    <img src={loginImage} alt="" />
                 </div>
             </div>
         </div>

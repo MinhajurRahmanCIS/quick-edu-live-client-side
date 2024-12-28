@@ -17,7 +17,7 @@ const Paper = ({ ap, refetch, i }) => {
             confirmButtonText: "Delete Paper"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/check/${id}`, {
+                fetch(`https://quick-edu-live-server-side.onrender.com/check/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
@@ -47,7 +47,7 @@ const Paper = ({ ap, refetch, i }) => {
     };
     return (
         <div className="card bg-base-100 shadow-md rounded-none hover:shadow-xl">
-            <Link to={`/myhome/papersummery/${_id}`}><img className="object-fill h-[250px] w-full cursor-pointer" src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/38-512.png" alt="" /></Link>
+            <Link to={`/myhome/papersummery/${_id}`}><img loading="lazy" className="object-fill h-[250px] w-full cursor-pointer" src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/38-512.png" alt="" /></Link>
             <div className="card-body">
                 <h2 className="card-title">
                     {/* {name} */} Paper No : {i+1}

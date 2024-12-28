@@ -18,7 +18,7 @@ const Review = ({ review }) => {
                 <div className="flex items-center gap-2">
                     <div className="avatar">
                         <div className="w-12 rounded-full">
-                            <img src={image} alt="" />
+                            <img loading="lazy" src={image} alt="" />
                         </div>
                     </div>
                     <div className="flex flex-col">

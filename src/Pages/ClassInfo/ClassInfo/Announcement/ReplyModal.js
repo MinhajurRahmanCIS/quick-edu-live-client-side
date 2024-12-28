@@ -19,7 +19,7 @@ const ReplyModal = ({ modal, setModal }) => {
             date: format(currentDate, "d/MM/yyyy HH:mm:ss a"),
         };
         // console.log(classComment);
-        fetch("http://localhost:5000/announcements", {
+        fetch("https://quick-edu-live-server-side.onrender.com/announcements", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
