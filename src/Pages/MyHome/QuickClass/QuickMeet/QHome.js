@@ -21,7 +21,7 @@ function QHome() {
   }, [theme]);
 
   const createRoom = async (id) => {
-    const response = await fetch('https://quick-edu-live-server-side.onrender.com/api/createRoom', {
+    const response = await fetch('https://meet-p57l.onrender.com/api/createRoom', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ roomName: id }),

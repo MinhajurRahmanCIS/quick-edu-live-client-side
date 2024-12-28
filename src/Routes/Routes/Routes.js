@@ -42,7 +42,7 @@ import MyModule from "../../Pages/Module/MyModule/MyModule";
 import StartModule from "../../Pages/Module/StartModule/StartModule";
 import Certificate from "../../Pages/Module/StartModule/Certificate";
 
-const socket = io('https://quick-edu-live-server-side.onrender.com');
+const socket = io('https://meet-p57l.onrender.com');
 
 const router = createBrowserRouter([
     //Home Directory
