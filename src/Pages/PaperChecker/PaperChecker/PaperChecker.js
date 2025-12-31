@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import checkingIcon from "../../../assets/icon/scanning.gif";
+import useLoadUser from '../../../hooks/useLoadUser';
+import Loading from '../../Shared/Loading/Loading';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const PaperChecker = () => {
+    const { user }                              = useContext(AuthContext);
     const [questionPreview, setQuestionPreview] = useState(null);
-    const [answerPreview, setAnswerPreview] = useState(null);
-    const [resultLoading, setResultLoading] = useState(false)
-    const imageHostKey = process.env.REACT_APP_imgBB_key;
-    const navigate = useNavigate();
+    const [answerPreview, setAnswerPreview]     = useState(null);
+    const [resultLoading, setResultLoading]     = useState(false)
+    const imageHostKey                          = process.env.REACT_APP_imgBB_key;
+    const navigate                              = useNavigate();
+    const { userInfo, userIsLoading, refetch }  = useLoadUser(user);
+    if (userIsLoading) {
+        return <Loading></Loading>;
+    };
+    const { _id, name, email, role } = userInfo?.data || {};
 
     const handleQuestionImageChange = (e) => {
         const file = e.target.files[0];
@@ -73,7 +82,11 @@ const PaperChecker = () => {
                             // studentId,
                             // subject,
                             questionImg,
-                            answerImg
+                            answerImg,
+                            _id,
+                            name,
+                            email,
+                            role
                         };
                         fetch("https://quick-edu-live-server-side.onrender.com/check", {
                             method: "POST",
@@ -85,16 +98,24 @@ const PaperChecker = () => {
                         })
                             .then(res => res.json())
                             .then(data => {
-                                if (data.data.insertedId) {
+                                if (data?.data?.insertedId) {
                                     setQuestionPreview(null)
                                     setAnswerPreview(null)
                                     setResultLoading(false);
                                     toast.success("Checking Done!")
                                     form.reset();
-                                    navigate(`/myhome/papersummery/${data.data.insertedId}`);
+                                    navigate(`/myhome/papersummery/${data?.data?.insertedId}`);
                                 }
                             })
-                    });
+                            .catch(error => {
+                                setResultLoading(false);
+                                console.log(error)
+                            })
+                    })
+                    .catch(error => {
+                        setResultLoading(false);
+                        console.log(error)
+                    })
             });
     }
 
