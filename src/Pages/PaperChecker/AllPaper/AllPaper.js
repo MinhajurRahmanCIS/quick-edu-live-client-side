@@ -7,12 +7,11 @@ import useLoadUser from '../../../hooks/useLoadUser';
 
 const AllPaper = () => {
     const { user }                                      = useContext(AuthContext);
-    const { userInfo, userIsLoading }                   = useLoadUser(user);
-    const { _id, name, email, role } = userInfo?.data || {};
+
     const { data: allPaper = [], isLoading, refetch }   = useQuery({
-        queryKey: ["All Paper"],
+        queryKey: ["Individual Paper"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/check/${email}`, {
+            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/check/${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }
@@ -22,7 +21,7 @@ const AllPaper = () => {
         }
     });
 
-    if (isLoading) {
+    if (isLoading || userIsLoading) {
         return <Loading></Loading>
     };
     // console.log(allPaper);
