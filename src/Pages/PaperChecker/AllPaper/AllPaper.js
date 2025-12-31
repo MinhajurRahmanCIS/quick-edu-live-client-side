@@ -21,7 +21,7 @@ const AllPaper = () => {
         }
     });
 
-    if (isLoading || userIsLoading) {
+    if (isLoading) {
         return <Loading></Loading>
     };
     // console.log(allPaper);
