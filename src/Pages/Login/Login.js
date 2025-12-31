@@ -7,8 +7,9 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet-async';
+
 const Login = () => {
-    const { signIn, signInWithGoogle } = useContext(AuthContext);
+    const { signIn, updateUser, signInWithGoogle } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [loginError, setLoginError] = useState("");
     const [loginUserEmail, setLoginUserEmail] = useState("")
@@ -17,6 +18,22 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || "/myhome";
+
+    const saveUser = user => {
+        fetch('https://quick-edu-live-server-side.onrender.com/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data)
+                setLoginUserEmail(user.email);
+                toast.success(data.message);
+            });
+    };
 
     const handelLogin = (data, event) => {
         setLoginError("");
@@ -34,11 +51,74 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
-                const loggedUser = result.user;
-                setLoginUserEmail(loggedUser.email);
+                const loggedUser = result?.user;
+                fetch(`https://quick-edu-live-server-side.onrender.com/users/${loggedUser?.email}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        if (!data?.success || !data?.data) {
+                            const user = {
+                                name: loggedUser?.displayName,
+                                email: loggedUser?.email,
+                                image: loggedUser?.photoURL,
+                                role: "",
+                                account: "",
+                                institution: "",
+                                country: "",
+                                dob: ""
+                            };
+                            updateUser(user)
+                                .then(() => {
+                                    saveUser(user);
+                                    setLoginUserEmail(loggedUser?.email);
+                                }).catch(error => {
+                                    setLoginError(error.message)
+                                });
+                        }
+                        else {
+                            console.log("Existing User")
+                            setLoginUserEmail(loggedUser.email);
+                        }
+                    })
             })
             .catch(error => console.error(error));
     };
+
+    // const handleGoogleSignIn = () => {
+    //     signInWithGoogle()
+    //         .then(result => {
+    //             const loggedUser = result.user;
+    //             setLoginUserEmail(loggedUser.email);
+
+    //             // 🔹 Check if user exists
+    //             return fetch(`https://quick-edu-live-server-side.onrender.com/users/${loggedUser.email}`)
+    //                 .then(res => res.json())
+    //                 .then(data => {
+    //                     // 🔹 If user NOT found → create/update user
+    //                     if (!data.success || !data.data) {
+    //                         const user = {
+    //                             name: loggedUser.displayName,
+    //                             email: loggedUser.email,
+    //                             photoURL: loggedUser.photoURL,
+    //                             role: 'user'
+    //                         };
+
+    //                         return updateUser(user);
+    //                     }
+
+    //                     // 🔹 If user exists → do nothing
+    //                     return Promise.resolve();
+    //                 });
+    //         })
+    //         .then(() => {
+    //             console.log('Login flow completed');
+    //         })
+    //         .catch(error => {
+    //             console.error(error);
+    //             setSignupError(error.message);
+    //         });
+    // };
+
 
     useEffect(() => {
         if (token) {

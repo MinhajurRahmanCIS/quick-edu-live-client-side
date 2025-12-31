@@ -20,6 +20,7 @@ const QuizModal = ({ modal, setModal, refetch }) => {
         setResultLoading(true);
         // console.log(data)
         data.classId = modal._id;
+
         fetch("https://quick-edu-live-server-side.onrender.com/classwork", {
             method: "POST",
             headers: {
@@ -28,22 +29,31 @@ const QuizModal = ({ modal, setModal, refetch }) => {
             },
             body: JSON.stringify(data)
         })
-            .then(res => res.json())
+            .then(async res => {
+                const contentType = res.headers.get("content-type");
+
+                if (!contentType || !contentType.includes("application/json")) {
+                    throw new Error("Invalid response from server");
+                }
+
+                return res.json();
+            })
             .then(data => {
-                console.log(data);
-                if (data.data.insertedId) {
-                    setResultLoading(false);
+                if (data?.success && data?.data?.insertedId) {
                     toast.success("Question Generated!");
-                    e.target.reset();
+                    setResultLoading(false);
                     setModal(null);
                     refetch();
-                };
+                } else {
+                    throw new Error(data?.message || "Failed");
+                }
             })
             .catch(error => {
+                console.error(error);
                 toast.error("Please Try again! Something went wrong...");
-                e.target.reset();
-                setModal(null);
-            })
+                setResultLoading(false);
+            });
+
         // setModal(null)
     };
     return (

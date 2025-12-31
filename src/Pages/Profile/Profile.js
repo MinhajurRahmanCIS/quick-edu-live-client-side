@@ -12,13 +12,14 @@ import { Helmet } from 'react-helmet-async';
 
 const Profile = () => {
     const { user } = useContext(AuthContext);
+    console.log(user);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { userInfo, userIsLoading, refetch } = useLoadUser(user);
     const [newSkill, setNewSkill] = useState('');
     if (userIsLoading) {
         return <Loading></Loading>;
     };
-    const { _id, name, email, institution, country, dob, role, image, account, skills } = userInfo.data;
+    const { _id, name, email, institution, country, dob, role, image, account, skills } = userInfo?.data || {};
     // console.log(userInfo.data);
 
     const handelUpdateProfile = data => {
@@ -65,7 +66,7 @@ const Profile = () => {
         <section>
             <Helmet>
                 <title>
-                    {name}'s Profile
+                    {name || user?.displayName || 'User'}'s Profile
                 </title>
             </Helmet>
             <form onSubmit={handleSubmit(handelUpdateProfile)} className="card-body">
@@ -85,7 +86,7 @@ const Profile = () => {
                             type="email"
                             // placeholder="Enter Your Email Address"
                             className="input input-bordered"
-                            defaultValue={email}
+                            defaultValue={email || user?.email}
                             disabled />
                     </div>
                     <div className="form-control">
@@ -96,7 +97,7 @@ const Profile = () => {
                             type="text"
                             // placeholder="Enter Your Name"
                             className="input input-bordered"
-                            defaultValue={name}
+                            defaultValue={name || user?.displayName}
                             disabled
                         />
                     </div>
@@ -146,7 +147,7 @@ const Profile = () => {
                         </label>
                         <input {...register("dob",
                             {
-                                required: { value: true, message: "Please Enter your Date of birth" }
+                                // required: { value: true, message: "Please Enter your Date of birth" }
                             })}
                             type="date"
                             className="input input-bordered"

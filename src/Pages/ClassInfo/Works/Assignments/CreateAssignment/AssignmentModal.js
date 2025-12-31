@@ -29,23 +29,31 @@ const AssignmentModal = ({ modal, setModal, refetch }) => {
             },
             body: JSON.stringify(data)
         })
-            .then(res => res.json())
+            .then(async res => {
+                const contentType = res.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    throw new Error("Invalid response from server");
+                }
+                return res.json();
+            })
             .then(data => {
-                // console.log(data);
-                if (data.data.insertedId) {
-                    setResultLoading(false);
+                if (data?.success && data?.data?.insertedId) {
                     toast.success("Assignment Generated!");
+                    setResultLoading(false);
                     e.target.reset();
                     setModal(null);
                     refetch();
-                };
+                } else {
+                    throw new Error(data?.message || "Failed to generate assignment");
+                }
             })
             .catch(error => {
-                toast.error("Please Try again! Something went wrong...");
-                e.target.reset();
-                setModal(null);
-            })
-        // setModal(null)
+                console.error(error);
+                toast.error(error.message || "Please Try again! Something went wrong...");
+                // e.target.reset(); // Don't reset form on error so user can retry
+                setResultLoading(false);
+                // setModal(null); // Keep modal open so user can retry
+            });
     };
     return (
         <div>

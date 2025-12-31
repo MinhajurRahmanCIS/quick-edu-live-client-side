@@ -7,6 +7,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import toast from 'react-hot-toast';
 import useToken from '../../hooks/useToken';
 import { Helmet } from 'react-helmet-async';
+
 const Signup = () => {
     const { register, formState: { errors }, handleSubmit, watch } = useForm();
     const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
@@ -17,6 +18,22 @@ const Signup = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || "/myhome";
+
+    const saveUser = user => {
+        fetch('https://quick-edu-live-server-side.onrender.com/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data)
+                setCreatedUserEmail(user.email);
+                toast.success(data.message);
+            });
+    };
 
     const handelSignup = (data, event) => {
         setSignupError("");
@@ -83,35 +100,26 @@ const Signup = () => {
             .then(result => {
                 const loggedUser = result.user;
                 const user = {
-                    name: loggedUser.displayName,
-                    email: loggedUser.email,
-                    image: loggedUser.photoURL,
+                    name: loggedUser?.displayName,
+                    email: loggedUser?.email,
+                    image: loggedUser?.photoURL,
                     role: "",
                     account: "",
                     institution: "",
                     country: "",
                     dob: ""
                 };
-                saveUser(user);
+                updateUser(user)
+                    .then(() => {
+                        saveUser(user);
+                    }).catch(error => {
+                        setSignupError(error.message);
+                    });
             })
             .catch(error => console.error(error));
     };
 
-    const saveUser = user => {
-        fetch('https://quick-edu-live-server-side.onrender.com/users', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data)
-                setCreatedUserEmail(user.email);
-                toast.success(data.message);
-            });
-    };
+
 
     useEffect(() => {
         if (token) {
