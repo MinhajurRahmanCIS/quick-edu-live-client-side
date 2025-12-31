@@ -1,19 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import Loading from '../../Shared/Loading/Loading';
 import Paper from './Paper';
+import { AuthContext } from '../../../contexts/AuthProvider';
+import useLoadUser from '../../../hooks/useLoadUser';
 
 const AllPaper = () => {
-    const { data: allPaper = [], isLoading, refetch } = useQuery({
+    const { user }                                      = useContext(AuthContext);
+    const { userInfo, userIsLoading }                   = useLoadUser(user);
+    const { _id, name, email, role } = userInfo?.data || {};
+    const { data: allPaper = [], isLoading, refetch }   = useQuery({
         queryKey: ["All Paper"],
         queryFn: async () => {
-            const res = await fetch(`https://quick-edu-live-server-side.onrender.com/check`, {
+            const res = await fetch(`http://localhost:5000/check/${email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("quickEdu-token")}`
                 }
             });
             const data = await res.json();
-            return data;
+            return data || [];
         }
     });
 
